@@ -68,6 +68,7 @@ AppAsset::register($this);
             ['label' => 'Pemasukan', 'url' => ['/tr-pemasukan']],
             ['label' => 'Pengeluaran', 'url' => ['/tr-pengeluaran']],
             ['label' => 'Pengumuman', 'url' => ['/tr-pengumuman']],
+            ['label' => 'Proposal', 'url' => ['/tr-proposal']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
