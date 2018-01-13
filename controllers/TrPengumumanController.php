@@ -125,12 +125,7 @@ class TrPengumumanController extends Controller
     public function actionPengumuman()
     {
         $now = date('Y-m-d H:i:s');
-        $dataPengumuman = TrPengumuman::find()
-                            ->where(['flag' => 1])
-                            ->andWhere(['id_pengumuman' => [3, 5]])
-                            ->andWhere(['<', 'tanggal_mulai', $now])
-                            ->andWhere(['>', 'tanggal_selesai', $now])
-                            ->all();
+        $dataPengumuman =  TrPengumuman::getDataPengumuman();
         
         return $this->render('pengumuman', [
             'dataPengumuman' => $dataPengumuman
@@ -140,12 +135,7 @@ class TrPengumumanController extends Controller
     public function actionBerita()
     {
         $now = date('Y-m-d H:i:s');
-        $dataPengumuman = TrPengumuman::find()
-                            ->where(['flag' => 1])
-                            ->andWhere(['id_pengumuman' => [1,2]])
-                            ->andWhere(['<', 'tanggal_mulai', $now])
-                            ->andWhere(['>', 'tanggal_selesai', $now])
-                            ->all();
+        $dataPengumuman =  TrPengumuman::getDataBerita();
 
         return $this->render('berita', [
             'dataPengumuman' => $dataPengumuman
@@ -155,12 +145,7 @@ class TrPengumumanController extends Controller
     public function actionAgenda()
     {
         $now = date('Y-m-d H:i:s');
-        $dataPengumuman = TrPengumuman::find()
-                            ->where(['flag' => 1])
-                            ->andWhere(['id_pengumuman' => [4]])
-                            ->andWhere(['<', 'tanggal_mulai', $now])
-                            ->andWhere(['>', 'tanggal_selesai', $now])
-                            ->all();
+        $dataPengumuman =  TrPengumuman::getDataAgenda();
 
         return $this->render('agenda', [
             'dataPengumuman' => $dataPengumuman
