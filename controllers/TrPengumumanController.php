@@ -121,4 +121,80 @@ class TrPengumumanController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionPengumuman()
+    {
+        $now = date('Y-m-d H:i:s');
+        $dataPengumuman = TrPengumuman::find()
+                            ->where(['flag' => 1])
+                            ->andWhere(['id_pengumuman' => [3, 5]])
+                            ->andWhere(['<', 'tanggal_mulai', $now])
+                            ->andWhere(['>', 'tanggal_selesai', $now])
+                            ->all();
+        
+        return $this->render('pengumuman', [
+            'dataPengumuman' => $dataPengumuman
+        ]);
+    }
+
+    public function actionBerita()
+    {
+        $now = date('Y-m-d H:i:s');
+        $dataPengumuman = TrPengumuman::find()
+                            ->where(['flag' => 1])
+                            ->andWhere(['id_pengumuman' => [1,2]])
+                            ->andWhere(['<', 'tanggal_mulai', $now])
+                            ->andWhere(['>', 'tanggal_selesai', $now])
+                            ->all();
+
+        return $this->render('berita', [
+            'dataPengumuman' => $dataPengumuman
+        ]);
+    }
+
+    public function actionAgenda()
+    {
+        $now = date('Y-m-d H:i:s');
+        $dataPengumuman = TrPengumuman::find()
+                            ->where(['flag' => 1])
+                            ->andWhere(['id_pengumuman' => [4]])
+                            ->andWhere(['<', 'tanggal_mulai', $now])
+                            ->andWhere(['>', 'tanggal_selesai', $now])
+                            ->all();
+
+        return $this->render('agenda', [
+            'dataPengumuman' => $dataPengumuman
+        ]);
+    }    
+
+    public function actionDownload(){
+            header('Pragma: public');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Content-Transfer-Encoding: binary');
+            //header('Content-length: 1665');
+            header('Content-Type: text/html');
+            header('Content-Disposition: attachment; filename=/web/pengumuman/Indo_Newsletter_October.pdf');
+                      
+            echo stream_get_contents($model->$file_field,-1,0);   
+        // $src = "@web/pengumumane/Indo_Newsletter_October.pdf";
+        // if(@file_exists($src)) {
+        //         $path_parts = @pathinfo($src);
+        //         //$mime = $this->__get_mime($path_parts['extension']);
+        //         header('Content-Description: File Transfer');
+        //         header('Content-Type: application/octet-stream');
+        //         header('Content-Disposition: attachment; filename='.basename($src));
+        //         header('Content-Transfer-Encoding: binary');
+        //         header('Expires: 0');
+        //         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        //         header('Pragma: public');
+        //         header('Content-Length: ' . filesize($src));
+        //         ob_clean();
+        //         flush();
+        //         readfile($src);
+        // } else {
+        //         header("HTTP/1.0 404 Not Found");
+        //         exit();
+        // }
+    }
 }

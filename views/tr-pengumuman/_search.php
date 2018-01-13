@@ -23,9 +23,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tanggal_selesai') ?>
 
-    <?= $form->field($model, 'keterangan_pengumuman') ?>
+    <?= $form->field($model, 'judul_pengumuman') ?>
+
+    <?php // echo $form->field($model, 'keterangan_pengumuman') ?>
 
     <?php // echo $form->field($model, 'url_dokumen_pengumuman') ?>
+
+    <?php // echo $form->field($model, 'flag') ?>
+
+    <?php // echo $form->field($model, 'id_created') ?>
+
+    <?php // echo $form->field($model, 'id_approval') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

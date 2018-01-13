@@ -28,8 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_pengumuman',
             'tanggal_mulai',
             'tanggal_selesai',
-            'keterangan_pengumuman:ntext',
+            'judul_pengumuman:ntext',
+            // 'keterangan_pengumuman:ntext',
             // 'url_dokumen_pengumuman:ntext',
+            // 'flag',
+            // 'id_created',
+            // 'id_approval',
             // 'created_at',
             // 'updated_at',
 

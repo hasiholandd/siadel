@@ -18,9 +18,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tanggal_selesai')->textInput() ?>
 
+    <?= $form->field($model, 'judul_pengumuman')->textarea(['rows' => 6]) ?>
+
     <?= $form->field($model, 'keterangan_pengumuman')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'url_dokumen_pengumuman')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'flag')->textInput() ?>
+
+    <?= $form->field($model, 'id_created')->textInput() ?>
+
+    <?= $form->field($model, 'id_approval')->textInput() ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 
