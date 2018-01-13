@@ -185,9 +185,9 @@ AppAsset::register($this);
             'items' => [
                 ['label' => 'Home', 'url' => ['/site/index']],
                    
-                ['label' => 'Pengumuman', 'url' => ['/pengumuman']],
-                ['label' => 'Berita', 'url' => ['/berita']],
-                ['label' => 'Agenda', 'url' => ['/agenda']],
+                ['label' => 'Pengumuman', 'url' => ['tr-pengumuman/pengumuman']],
+                ['label' => 'Berita', 'url' => ['/tr-pengumuman/berita']],
+                ['label' => 'Agenda', 'url' => ['/tr-pengumuman/agenda']],
                 Yii::$app->user->isGuest ? (
                     ['label' => 'Login', 'url' => ['/site/login']]
                 ) : (
