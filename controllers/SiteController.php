@@ -71,12 +71,20 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $session = Yii::$app->session;
+        $session->open();
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if($_POST['LoginForm']['username'] == 'admin'){
+                $session->set('user', 'admin');
+            }else{
+                $session->set('user', 'user');
+            }
             return $this->goBack();
         }
         return $this->render('login', [
@@ -91,8 +99,9 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
+        $session = Yii::$app->session;
         Yii::$app->user->logout();
-
+        $session->destroy();
         return $this->goHome();
     }
 

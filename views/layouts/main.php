@@ -34,55 +34,176 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
+    $session = Yii::$app->session;
+    $session->open();
+    if($session->get('user') == 'admin'){
+            echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
+                ['label' => 'Home', 'url' => ['/site/index']],
                [
                 'label' => 'Master Data',
                 'items' => [
-                     ['label' => 'Master Angkatan', 'url' => ['/ms-angkatan']],
-                     '<li class="divider"></li>',
-                     ['label' => 'Master Bank', 'url' => ['/ms-bank']],
-                     '<li class="divider"></li>',
-                     ['label' => 'Master Iuran', 'url' => ['/ms-iuran']],
-                     '<li class="divider"></li>',
-                     ['label' => 'Master Jurusan', 'url' => ['/ms-jurusan']],
-                     '<li class="divider"></li>',
-                      ['label' => 'Master Pekerjaan', 'url' => ['/ms-pekerjaan']],
-                     '<li class="divider"></li>',
-                     ['label' => 'Master Pemasukan', 'url' => ['/ms-pemasukan']],
-                     '<li class="divider"></li>',
-                     ['label' => 'Master Pendidikan', 'url' => ['/ms-pendidikan']],
-                     '<li class="divider"></li>',
-                     ['label' => 'Master Pengeluaran', 'url' => ['/ms-pengeluaran']],
-                     '<li class="divider"></li>',
-                     ['label' => 'Master Pengumuman', 'url' => ['/ms-pengumuman']],
+                         ['label' => 'Master Angkatan', 'url' => ['/ms-angkatan']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Master Bank', 'url' => ['/ms-bank']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Master Iuran', 'url' => ['/ms-iuran']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Master Jurusan', 'url' => ['/ms-jurusan']],
+                         '<li class="divider"></li>',
+                          ['label' => 'Master Pekerjaan', 'url' => ['/ms-pekerjaan']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Master Pendidikan', 'url' => ['/ms-pendidikan']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Master Pengumuman', 'url' => ['/ms-pengumuman']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Master Pemasukan', 'url' => ['/ms-pemasukan']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Master Pengeluaran', 'url' => ['/ms-pengeluaran']],
+                    ],
                 ],
-            ],
-            //['label' => 'About', 'url' => ['/site/about']],
-            //['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'Anggota', 'url' => ['/tr-anggota']],
-            ['label' => 'Iuran', 'url' => ['/tr-iuran']],
-            ['label' => 'Laporan Kegiatan', 'url' => ['/tr-laporan-kegiatan']],
-            ['label' => 'Pemasukan', 'url' => ['/tr-pemasukan']],
-            ['label' => 'Pengeluaran', 'url' => ['/tr-pengeluaran']],
-            ['label' => 'Pengumuman', 'url' => ['/tr-pengumuman']],
-            ['label' => 'Proposal', 'url' => ['/tr-proposal']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
+
+                [
+                'label' => 'Pengumuman',
+                'items' => [
+                         ['label' => 'Tambah Pengumuman', 'url' => ['/tr-pengumuman']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Publish Pengumuman', 'url' => ['/tr-pengumuman']],
+                    ],
+                ],
+
+                [
+                'label' => 'Anggota',
+                'items' => [
+                         ['label' => 'Input Bulk Anggota', 'url' => ['/tr-anggota']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Tambah Data Anggota', 'url' => ['/tr-anggota']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Ubah Data Anggota', 'url' => ['/tr-anggota']],
+                    ],
+                ],
+
+                [
+                'label' => 'Iuran',
+                'items' => [
+                         ['label' => 'Tambah Iuran', 'url' => ['/tr-iuran']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Blast Informasi Iuran', 'url' => ['/tr-iuran']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Monitoring Pembayaran', 'url' => ['/tr-iuran']],
+                    ],
+                ],
+
+                ['label' => 'Laporan Kegiatan', 'url' => ['/tr-laporan-kegiatan']],
+
+                ['label' => 'Pengeluaran', 'url' => ['/tr-pengeluaran']],
+
+                ['label' => 'Pemasukan', 'url' => ['/tr-pemasukan']],
+
+                [
+                'label' => 'Report',
+                'items' => [
+                         ['label' => 'Report Pengeluaran', 'url' => ['/tr-report-pengeluaran']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Report Pemasukan', 'url' => ['/tr-report-pemasukan']],
+                    ],
+                ],
+
+                ['label' => 'Profil', 'url' => ['/tr-user']],
+                Yii::$app->user->isGuest ? (
+                    ['label' => 'Login', 'url' => ['/site/login']]
+                ) : (
+                    '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>'
                 )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
+            ],
+        ]);
+    }
+    else if($session->get('user') == 'user'){
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
+                ['label' => 'Home', 'url' => ['/site/index']],
+                   
+                ['label' => 'Pengumuman', 'url' => ['/pengumuman']],
+                ['label' => 'Berita', 'url' => ['/berita']],
+                ['label' => 'Agenda', 'url' => ['/agenda']],
+
+                [
+                'label' => 'Profil',
+                'items' => [
+                         ['label' => 'Ubah Data Diri', 'url' => ['/profil']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Ubah Password', 'url' => ['/ubah-password']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Lihat Data Alumni', 'url' => ['/lihat-data-alumni']],
+                    ],
+                ],
+
+                [
+                'label' => 'Iuran',
+                'items' => [
+                         ['label' => 'Lihat Status Pembayaran', 'url' => ['/status-bayar']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Konfirmasi Pembayaran', 'url' => ['/konfirmasi-bayar']],
+                    ],
+                ],
+
+
+                [
+                'label' => 'Proposal',
+                'items' => [
+                         ['label' => 'Lihat Status Proposal', 'url' => ['/lihat-proposal']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Upload Proposal', 'url' => ['/upload-proposal']],
+                    ],
+                ],
+                Yii::$app->user->isGuest ? (
+                    ['label' => 'Login', 'url' => ['/site/login']]
+                ) : (
+                    '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>'
+                )
+            ],
+        ]);
+    }else if(empty($session->get('user'))){
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
+                ['label' => 'Home', 'url' => ['/site/index']],
+                   
+                ['label' => 'Pengumuman', 'url' => ['/pengumuman']],
+                ['label' => 'Berita', 'url' => ['/berita']],
+                ['label' => 'Agenda', 'url' => ['/agenda']],
+                Yii::$app->user->isGuest ? (
+                    ['label' => 'Login', 'url' => ['/site/login']]
+                ) : (
+                    '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>'
+                )
+            ],
+        ]);
+    }
+    
     NavBar::end();
     ?>
 
