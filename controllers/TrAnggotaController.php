@@ -2,6 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\MsAngkatan;
+use app\models\MsJurusan;
+use app\models\MsPekerjaan;
+use app\models\MsPendidikan;
 use Yii;
 use app\models\TrAnggota;
 use app\models\TrAnggotaSearch;
@@ -145,9 +149,13 @@ class TrAnggotaController extends Controller
                 while (($fileop = fgetcsv($handle, 10000, ",")) !== false)
                 {
                     if($count > 0) {
+                        $jurusan = MsJurusan::find()->where(['nama_jurusan'=> $fileop[5]])->one();
+                        $pendidikan = MsPendidikan::find()->where(['nama_pendidikan'=>$fileop[6]])->one();
+                        $pekerjaan = MsPekerjaan::find()->where(['nama_pekerjaan'=>$fileop[7]])->one();
+                        $angkatan = MsAngkatan::find()->where(['tahun_angkatan'=>$fileop[8]])->one();
                         $sql = "INSERT INTO tr_anggota(nim,nama,tempat_lahir,tanggal_lahir,agama,jurusan,pendidikan_terakhir,pekerjaan,angkatan,no_hp
                     ,email,alamat,alamat_domisili,status_kawin,status_hidup,url_foto) VALUES ('$fileop[0]', '$fileop[1]', '$fileop[2]',
-                    '$fileop[3]','$fileop[4]','$fileop[5]','$fileop[6]','$fileop[7]','$fileop[8]','$fileop[9]','$fileop[10]','$fileop[11]','$fileop[12]'
+                    '$fileop[3]','$fileop[4]','$jurusan->id','$pendidikan->id','$pekerjaan->id','$angkatan->id','$fileop[9]','$fileop[10]','$fileop[11]','$fileop[12]'
                     ,'$fileop[13]','$fileop[14]','$fileop[15]')";
                         Yii::$app->db->createCommand($sql)->execute();
                     }
