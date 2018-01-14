@@ -78,7 +78,7 @@ class TrAnggota extends \yii\db\ActiveRecord
             'url_foto' => 'Url Foto',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'file'=>'Select File',
+            'file'=>'Pilih File',
         ];
     }
 }

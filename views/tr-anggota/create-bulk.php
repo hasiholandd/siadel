@@ -20,9 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
 
-        <?= Html::activeDropDownList($model, 'angkatan',
-            ArrayHelper::map(MsAngkatan::find()->all(), 'id', 'tahun_angkatan')) ?>
-
         <?= $form->field($model,'file')->fileInput() ?>
 
         <div class="form-group">
