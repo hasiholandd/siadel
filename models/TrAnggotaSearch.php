@@ -19,7 +19,7 @@ class TrAnggotaSearch extends TrAnggota
     {
         return [
             [['id', 'jurusan', 'pendidikan_terakhir', 'pekerjaan', 'angkatan', 'status_kawin', 'status_hidup'], 'integer'],
-            [['nama', 'tempat_lahir', 'tanggal_lahir', 'agama', 'no_hp', 'email', 'alamat', 'alamat_domisili', 'url_foto', 'created_at', 'updated_at'], 'safe'],
+            [['nim', 'nama', 'tempat_lahir', 'tanggal_lahir', 'agama', 'no_hp', 'email', 'alamat', 'alamat_domisili', 'url_foto', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -71,7 +71,8 @@ class TrAnggotaSearch extends TrAnggota
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'nama', $this->nama])
+        $query->andFilterWhere(['like', 'nim', $this->nim])
+            ->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'tempat_lahir', $this->tempat_lahir])
             ->andFilterWhere(['like', 'agama', $this->agama])
             ->andFilterWhere(['like', 'no_hp', $this->no_hp])

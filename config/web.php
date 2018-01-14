@@ -48,6 +48,10 @@ $config = [
         ],
         */
     ],
+    'aliases' =>
+        [
+            '@uploadedfilesdir' => '@app/uploads/csv'
+        ],
     'params' => $params,
 ];
 

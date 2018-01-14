@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "tr_anggota".
  *
  * @property integer $id
+ * @property string $nim
  * @property string $nama
  * @property string $tempat_lahir
  * @property string $tanggal_lahir
@@ -28,6 +29,7 @@ use Yii;
  */
 class TrAnggota extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * @inheritdoc
      */
@@ -45,7 +47,9 @@ class TrAnggota extends \yii\db\ActiveRecord
             [['tanggal_lahir', 'created_at', 'updated_at'], 'safe'],
             [['jurusan', 'pendidikan_terakhir', 'pekerjaan', 'angkatan', 'status_kawin', 'status_hidup'], 'integer'],
             [['url_foto'], 'string'],
-            [['nama', 'tempat_lahir', 'agama', 'no_hp', 'email', 'alamat', 'alamat_domisili'], 'string', 'max' => 255],
+            [['nim', 'nama', 'tempat_lahir', 'agama', 'no_hp', 'email', 'alamat', 'alamat_domisili'], 'string', 'max' => 255],
+            [['file'],'required'],
+            [['file'],'file','extensions'=>'csv','maxSize'=>1024 * 1024 * 5],
         ];
     }
 
@@ -56,6 +60,7 @@ class TrAnggota extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'nim' => 'Nim',
             'nama' => 'Nama',
             'tempat_lahir' => 'Tempat Lahir',
             'tanggal_lahir' => 'Tanggal Lahir',
@@ -73,6 +78,7 @@ class TrAnggota extends \yii\db\ActiveRecord
             'url_foto' => 'Url Foto',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'file'=>'Select File',
         ];
     }
 }
