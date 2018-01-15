@@ -116,7 +116,7 @@ AppAsset::register($this);
                          '<li class="divider"></li>',
                          ['label' => 'Manajemen Data User', 'url' => ['/tr-user/manajemenuser']],
                          '<li class="divider"></li>',
-                         ['label' => 'Ubah Password', 'url' => ['/tr-report-pemasukan']],
+                         ['label' => 'Ubah Password', 'url' => ['/tr-user/gantipassword']],
                     ],
                 ],
 

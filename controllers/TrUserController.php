@@ -146,48 +146,36 @@ class TrUserController extends Controller
     {
     	$session = Yii::$app->session;
         $model = $this->findModel($session->get('id_user'));
-       	$modelAnggota = $this->findModelAnggota($session->get('id_anggota'));
-                    
-        $optionPekerjaan = ArrayHelper::map(MsPekerjaan::find()->all(), 'id', 'nama_pekerjaan');
-        $optionPendidikan = ArrayHelper::map(MsPendidikan::find()->all(), 'id', 'nama_pendidikan');
-        $optionJurusan = ArrayHelper::map(MsJurusan::find()->all(), 'id', 'nama_jurusan');
-        $optionAngkatan = ArrayHelper::map(MsAngkatan::find()->all(), 'id', 'tahun_angkatan');
-       
 
         if (Yii::$app->request->post()){
-        	 echo $modelAnggota->validate();exit();
+        	$model->save();
         	
-// 			try{
-//         		if ($modelAnggota->validate()) {
-// 		        	$modelAnggota->nama = 'Hasih';
-// 		        	$modelAnggota->update();
-// 		        	echo($modelAnggota->save());
-// exit();
-// 		        	//}
-// 		        	return $this->redirect(['updatedatadiri', 'id' => $model->id, 'username' => $model->username, 'email' => $model->email]);
-//         		//}
-// 	        }catch(Exception $e){
-// 				echo $e->getMessage();
-// 	        }
+        	return $this->redirect(['updatedatadiri', 'id' => $model->id, 'username' => $model->username, 'email' => $model->email]);
         } else {
-            return $this->render('updatedatadiri', [
+            return $this->render('gantipassword', [
                 'model' => $model,
-                'modelAnggota' => $modelAnggota,
-                'optionPekerjaan' => $optionPekerjaan,
-                'optionPendidikan' => $optionPendidikan,
-                'optionJurusan' => $optionJurusan,
-                'optionAngkatan' => $optionAngkatan,
             ]);
         }
     }
-    /**
-     * Deletes an existing TrUser model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @param string $username
-     * @param string $email
-     * @return mixed
-     */
+    
+    public function actionGantipassword()
+    {
+    	$session = Yii::$app->session;
+        $model = $this->findModel($session->get('id_user'));
+
+        if (Yii::$app->request->post()){
+        	
+        	$model->password = md5(Yii::$app->request->post('TrUser')['password']);
+        	$model->updated_at = date('Y-m-d H:i:s');
+        	$model->save();
+	        return $this->redirect(['gantipassword', 'id' => $model->id, 'username' => $model->username, 'email' => $model->email]);
+        } else {
+            return $this->render('gantipassword', [
+                'model' => $model,
+            ]);
+        }
+    }
+
     public function actionDelete($id, $username, $email)
     {
         $this->findModel($id, $username, $email)->delete();
