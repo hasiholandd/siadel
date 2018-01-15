@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\TrUser;
 
 class SiteController extends Controller
 {
@@ -78,13 +79,8 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if($_POST['LoginForm']['username'] == 'admin'){
-                $session->set('user', 'admin');
-            }else{
-                $session->set('user', 'user');
-            }
+        $model = new TrUser();
+        if ($model->login()) {
             return $this->goBack();
         }
         return $this->render('login', [
@@ -102,6 +98,7 @@ class SiteController extends Controller
         $session = Yii::$app->session;
         Yii::$app->user->logout();
         $session->destroy();
+        $session->set('login',  'logout');
         return $this->goHome();
     }
 
