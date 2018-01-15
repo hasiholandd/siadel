@@ -23,11 +23,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'readonly' =>true]) ?>
 
-    <?= $form->field($model, 'id_role')->hint('Role Admin & User')->dropdownList([
-        1 => 'Admin', 
-        2 => 'User'
-    ],
-    ['prompt'=>'Select Category']);?>
+   <?= $form->field($model, 'id_role')->hint('Role Admin & User')->dropdownList($optionRole,
+        ['prompt'=>'Pilih Role']);?>
 
     <?= $form->field($model, 'last_login')->textInput(['maxlength' => true, 'readonly' =>true]) ?>
 

@@ -8,7 +8,7 @@ use app\models\TrAnggota;
 /* @var $searchModel app\models\TrUserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tr Users';
+$this->title = 'Manajemen User';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-user-index">
@@ -17,13 +17,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tr User', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\CheckboxColumn'],
+            //['class' => 'yii\grid\CheckboxColumn'],
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
@@ -40,30 +40,30 @@ $this->params['breadcrumbs'][] = $this->title;
              
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{assign}{updateAdmin}{view}{delete}',
+                'template' => '{assign}{update}{view}{delete}',
                 'buttons' => [
                     'assign' => function ($url, $model, $key) {
                         return Html::a(
-                            '<span class="glyphicon glyphicon-disk-saved"></span>',
+                            '<span class="glyphicon glyphicon-bookmark"></span>',
                             $url, 
                             [
-                                'title' => 'Assign',
+                                'title' => 'Assign Role',
                                 'data-pjax' => '0',
                             ]
                         );
                         //return $model->status === 'editable' ? Html::a('Update', $url) : '';
                     },
-                    'updateAdmin' => function ($url, $model, $key) {
-                        return Html::a(
-                            '<span class="glyphicon glyphicon-edit"></span>',
-                            $url, 
-                            [
-                                'title' => 'Update Admin',
-                                'data-pjax' => '0',
-                            ]
-                        );
-                        //return $model->status === 'editable' ? Html::a('Update', $url) : '';
-                    }
+                    // 'updateAdmin' => function ($url, $model, $key) {
+                    //     return Html::a(
+                    //         '<span class="glyphicon glyphicon-edit"></span>',
+                    //         $url, 
+                    //         [
+                    //             'title' => 'Update Admin',
+                    //             'data-pjax' => '0',
+                    //         ]
+                    //     );
+                    //     //return $model->status === 'editable' ? Html::a('Update', $url) : '';
+                    // }
                 ],
             ],
         ],

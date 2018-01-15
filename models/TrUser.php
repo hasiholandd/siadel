@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\models\MsRole;
+use app\models\TrAnggota;
 
 /**
  * This is the model class for table "tr_user".
@@ -58,7 +59,7 @@ class TrUser extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_anggota' => 'Id Anggota',
+            'id_anggota' => 'Anggota',
             'username' => 'Username',
             'email' => 'Email / Username',
             'password' => 'Password',
@@ -99,13 +100,7 @@ class TrUser extends \yii\db\ActiveRecord
                     ->andWhere(['password' => md5(Yii::$app->request->post('TrUser')['password'])]) 
                     ->one();
 
-            // if($_POST['LoginForm']['username'] == 'admin'){
-            //     $session->set('user', 'admin');
-            // }else{
-            //     $session->set('user', 'user');
-            // }
         if(empty($userExist)){
-            //echo 'sasa';exit();
             $this->addError('Incorrect username or password.');
         }else{
             $role = MsRole::find()
@@ -115,6 +110,8 @@ class TrUser extends \yii\db\ActiveRecord
             $session->set('rolename',  strtolower($role->nama_role));
             $session->set('username',  $userExist->username);
             $session->set('login',  'login');
+            $session->set('id_user',  $userExist->id);
+            $session->set('id_anggota',  $userExist->id_anggota);
             $userExist->last_login = date('Y-m-d H:i:s');
             $userExist->save();
             return true;

@@ -10,6 +10,12 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\TrAnggota;
 use app\models\MsRole;
+use yii\helpers\ArrayHelper;
+use app\models\MsPekerjaan;
+use app\models\MsJurusan;
+use app\models\MsAngkatan;
+use app\models\MsPendidikan;
+use yii\web\AssetManager;
 
 /**
  * TrUserController implements the CRUD actions for TrUser model.
@@ -71,12 +77,21 @@ class TrUserController extends Controller
     public function actionCreate()
     {
         $model = new TrUser();
+        $optionAnggota = ArrayHelper::map(TrAnggota::find()->all(), 'id', 'nama');
+        $optionRole = ArrayHelper::map(MsRole::find()->all(), 'id', 'nama_role');
+        
+        //set default password
+        $model->password = 'password123';
+        if ($model->load(Yii::$app->request->post())) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        	$model->password = md5(Yii::$app->request->post('TrUser')['password']);
+        	$model->save();
             return $this->redirect(['view', 'id' => $model->id, 'username' => $model->username, 'email' => $model->email]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'optionAnggota' => $optionAnggota,
+                'optionRole' => $optionRole,
             ]);
         }
     }
@@ -92,12 +107,18 @@ class TrUserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+       	$optionAnggota = ArrayHelper::map(TrAnggota::find()->all(), 'id', 'nama');
+        $optionRole = ArrayHelper::map(MsRole::find()->all(), 'id', 'nama_role');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){
+        	 $model->password = md5(Yii::$app->request->post('TrUser')['password']);
+        	 $model->save();
             return $this->redirect(['view', 'id' => $model->id, 'username' => $model->username, 'email' => $model->email]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'optionAnggota' => $optionAnggota,
+                'optionRole' => $optionRole,
             ]);
         }
     }
@@ -105,12 +126,57 @@ class TrUserController extends Controller
     public function actionUpdateAdmin($id)
     {
         $model = $this->findModel($id);
+       	$optionAnggota = ArrayHelper::map(TrAnggota::find()->all(), 'id', 'nama');
+        $optionRole = ArrayHelper::map(MsRole::find()->all(), 'id', 'nama_role');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){
+        	 $model->password = md5(Yii::$app->request->post('TrUser')['password']);
+        	 $model->save();
             return $this->redirect(['view', 'id' => $model->id, 'username' => $model->username, 'email' => $model->email]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'optionAnggota' => $optionAnggota,
+                'optionRole' => $optionRole,
+            ]);
+        }
+    }
+
+    public function actionUpdatedatadiri()
+    {
+    	$session = Yii::$app->session;
+        $model = $this->findModel($session->get('id_user'));
+       	$modelAnggota = $this->findModelAnggota($session->get('id_anggota'));
+                    
+        $optionPekerjaan = ArrayHelper::map(MsPekerjaan::find()->all(), 'id', 'nama_pekerjaan');
+        $optionPendidikan = ArrayHelper::map(MsPendidikan::find()->all(), 'id', 'nama_pendidikan');
+        $optionJurusan = ArrayHelper::map(MsJurusan::find()->all(), 'id', 'nama_jurusan');
+        $optionAngkatan = ArrayHelper::map(MsAngkatan::find()->all(), 'id', 'tahun_angkatan');
+       
+
+        if (Yii::$app->request->post()){
+        	 echo $modelAnggota->validate();exit();
+        	
+// 			try{
+//         		if ($modelAnggota->validate()) {
+// 		        	$modelAnggota->nama = 'Hasih';
+// 		        	$modelAnggota->update();
+// 		        	echo($modelAnggota->save());
+// exit();
+// 		        	//}
+// 		        	return $this->redirect(['updatedatadiri', 'id' => $model->id, 'username' => $model->username, 'email' => $model->email]);
+//         		//}
+// 	        }catch(Exception $e){
+// 				echo $e->getMessage();
+// 	        }
+        } else {
+            return $this->render('updatedatadiri', [
+                'model' => $model,
+                'modelAnggota' => $modelAnggota,
+                'optionPekerjaan' => $optionPekerjaan,
+                'optionPendidikan' => $optionPendidikan,
+                'optionJurusan' => $optionJurusan,
+                'optionAngkatan' => $optionAngkatan,
             ]);
         }
     }
@@ -147,6 +213,15 @@ class TrUserController extends Controller
         }
     }
 
+    protected function findModelAnggota($id)
+    {
+        if (($model = TrAnggota::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
     public function actionLogout()
     {
         $session = Yii::$app->session;
@@ -170,13 +245,32 @@ class TrUserController extends Controller
     public function actionAssign($id,$username,$email)
     {
         $model = $this->findModel($id);
-
+        $optionRole = ArrayHelper::map(MsRole::find()->all(), 'id', 'nama_role');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('assign', [
                 'model' => $model,
+                'optionRole' => $optionRole,
             ]);
         }
+    }
+
+    public function actionLogin()
+    {
+        $session = Yii::$app->session;
+        $session->open();
+
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new TrUser();
+        if ($model->login()) {
+            return $this->goBack();
+        }
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 }
