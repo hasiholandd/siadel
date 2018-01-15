@@ -112,7 +112,7 @@ AppAsset::register($this);
                 [
                 'label' => 'Profil',
                 'items' => [
-                         ['label' => 'Ubah Data Diri', 'url' => ['/tr-report-pengeluaran']],
+                         ['label' => 'Ubah Data Diri', 'url' => ['/tr-anggota/updatedatadiri']],
                          '<li class="divider"></li>',
                          ['label' => 'Manajemen Data User', 'url' => ['/tr-user/manajemenuser']],
                          '<li class="divider"></li>',
@@ -121,7 +121,7 @@ AppAsset::register($this);
                 ],
 
                 $session->get('login') != 'login' ? (
-                    ['label' => 'Login', 'url' => ['/site/login']]
+                    ['label' => 'Login', 'url' => ['/tr-user/login']]
                 ) : (
                     '<li>'
                     . Html::beginForm(['/tr-user/logout'], 'post')
@@ -176,7 +176,7 @@ AppAsset::register($this);
                 ],
 
                 $session->get('login') != 'login' ? (
-                    ['label' => 'Login', 'url' => ['/site/login']]
+                    ['label' => 'Login', 'url' => ['/tr-user/login']]
                 ) : (
                     '<li>'
                     . Html::beginForm(['/tr-user/logout'], 'post')

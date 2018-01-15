@@ -14,7 +14,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Expression;
 use yii\web\UploadedFile;
-
+use yii\helpers\ArrayHelper;
+use yii\web\AssetManager;
 /**
  * TrAnggotaController implements the CRUD actions for TrAnggota model.
  */
@@ -167,6 +168,45 @@ class TrAnggotaController extends Controller
         } else {
             return $this->render('create-bulk', [
                 'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionUpdatedatadiri()
+    {
+        $session = Yii::$app->session;
+        //$model = $this->findModel($session->get('id_user'));
+        $model = $this->findModel($session->get('id_user'));
+                    
+        $optionPekerjaan = ArrayHelper::map(MsPekerjaan::find()->all(), 'id', 'nama_pekerjaan');
+        $optionPendidikan = ArrayHelper::map(MsPendidikan::find()->all(), 'id', 'nama_pendidikan');
+        $optionJurusan = ArrayHelper::map(MsJurusan::find()->all(), 'id', 'nama_jurusan');
+        $optionAngkatan = ArrayHelper::map(MsAngkatan::find()->all(), 'id', 'tahun_angkatan');
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+             //echo $modelAnggota->validate();exit();
+            echo 'save';
+//          try{
+//              if ($modelAnggota->validate()) {
+//                  $modelAnggota->nama = 'Hasih';
+//                  $modelAnggota->update();
+                  //echo($modelAnggota->save());
+// exit();
+//                  //}
+                  return $this->redirect(['view', 'id' => $model->id]);
+//              //}
+//          }catch(Exception $e){
+//              echo $e->getMessage();
+//          }
+        } else {
+            echo 'xx';
+            //$model->save();
+            return $this->render('updatedatadiri', [
+                'model' => $model,
+                'optionPekerjaan' => $optionPekerjaan,
+                'optionPendidikan' => $optionPendidikan,
+                'optionJurusan' => $optionJurusan,
+                'optionAngkatan' => $optionAngkatan,
             ]);
         }
     }
