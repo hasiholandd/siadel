@@ -35,8 +35,7 @@ AppAsset::register($this);
         ],
     ]);
     $session = Yii::$app->session;
-    $session->open();
-    if($session->get('user') == 'admin'){
+    if($session->get('rolename') == 'admin'){
             echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
@@ -76,7 +75,7 @@ AppAsset::register($this);
                 [
                 'label' => 'Anggota',
                 'items' => [
-                         ['label' => 'Input Bulk Anggota', 'url' => ['/tr-anggota/create-bulk']],
+                         ['label' => 'Input Bulk Anggota', 'url' => ['/tr-anggota']],
                          '<li class="divider"></li>',
                          ['label' => 'Tambah Data Anggota', 'url' => ['/tr-anggota']],
                          '<li class="divider"></li>',
@@ -101,23 +100,33 @@ AppAsset::register($this);
 
                 ['label' => 'Pemasukan', 'url' => ['/tr-pemasukan']],
 
+                // [
+                // 'label' => 'Report',
+                // 'items' => [
+                //          ['label' => 'Report Pengeluaran', 'url' => ['/tr-report-pengeluaran']],
+                //          '<li class="divider"></li>',
+                //          ['label' => 'Report Pemasukan', 'url' => ['/tr-report-pemasukan']],
+                //     ],
+                // ],
+
                 [
-                'label' => 'Report',
+                'label' => 'Profil',
                 'items' => [
-                         ['label' => 'Report Pengeluaran', 'url' => ['/tr-report-pengeluaran']],
+                         ['label' => 'Ubah Data Diri', 'url' => ['/tr-report-pengeluaran']],
                          '<li class="divider"></li>',
-                         ['label' => 'Report Pemasukan', 'url' => ['/tr-report-pemasukan']],
+                         ['label' => 'Manajemen Data User', 'url' => ['/tr-user/manajemenuser']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Ubah Password', 'url' => ['/tr-report-pemasukan']],
                     ],
                 ],
 
-                ['label' => 'Profil', 'url' => ['/tr-user']],
-                Yii::$app->user->isGuest ? (
+                $session->get('login') != 'login' ? (
                     ['label' => 'Login', 'url' => ['/site/login']]
                 ) : (
                     '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::beginForm(['/tr-user/logout'], 'post')
                     . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        'Logout (' . $session->get('username') . ')',
                         ['class' => 'btn btn-link logout']
                     )
                     . Html::endForm()
@@ -126,26 +135,15 @@ AppAsset::register($this);
             ],
         ]);
     }
-    else if($session->get('user') == 'user'){
+    else if($session->get('rolename') == 'user'){
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Home', 'url' => ['/site/index']],
                    
-                ['label' => 'Pengumuman', 'url' => ['/pengumuman']],
-                ['label' => 'Berita', 'url' => ['/berita']],
-                ['label' => 'Agenda', 'url' => ['/agenda']],
-
-                [
-                'label' => 'Profil',
-                'items' => [
-                         ['label' => 'Ubah Data Diri', 'url' => ['/profil']],
-                         '<li class="divider"></li>',
-                         ['label' => 'Ubah Password', 'url' => ['/ubah-password']],
-                         '<li class="divider"></li>',
-                         ['label' => 'Lihat Data Alumni', 'url' => ['/lihat-data-alumni']],
-                    ],
-                ],
+                ['label' => 'Pengumuman', 'url' => ['/tr-pengumuman/pengumuman']],
+                ['label' => 'Berita', 'url' => ['/tr-pengumuman/berita']],
+                ['label' => 'Agenda', 'url' => ['/tr-pengumuman/agenda']],
 
                 [
                 'label' => 'Iuran',
@@ -165,13 +163,25 @@ AppAsset::register($this);
                          ['label' => 'Upload Proposal', 'url' => ['/upload-proposal']],
                     ],
                 ],
-                Yii::$app->user->isGuest ? (
+
+                [
+                'label' => 'Profil',
+                'items' => [
+                         ['label' => 'Ubah Data Diri', 'url' => ['/profil']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Ubah Password', 'url' => ['/ubah-password']],
+                         '<li class="divider"></li>',
+                         ['label' => 'Lihat Data Alumni', 'url' => ['/lihat-data-alumni']],
+                    ],
+                ],
+
+                $session->get('login') != 'login' ? (
                     ['label' => 'Login', 'url' => ['/site/login']]
                 ) : (
                     '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::beginForm(['/tr-user/logout'], 'post')
                     . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        'Logout (' . $session->get('username') . ')',
                         ['class' => 'btn btn-link logout']
                     )
                     . Html::endForm()
@@ -179,7 +189,7 @@ AppAsset::register($this);
                 )
             ],
         ]);
-    }else if(empty($session->get('user'))){
+    }else{
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
@@ -188,13 +198,13 @@ AppAsset::register($this);
                 ['label' => 'Pengumuman', 'url' => ['tr-pengumuman/pengumuman']],
                 ['label' => 'Berita', 'url' => ['/tr-pengumuman/berita']],
                 ['label' => 'Agenda', 'url' => ['/tr-pengumuman/agenda']],
-                Yii::$app->user->isGuest ? (
+                $session->get('login') != 'login' ? (
                     ['label' => 'Login', 'url' => ['/site/login']]
                 ) : (
                     '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::beginForm(['/tr-user/logout'], 'post')
                     . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        'Logout (' . $session->get('username') . ')',
                         ['class' => 'btn btn-link logout']
                     )
                     . Html::endForm()
