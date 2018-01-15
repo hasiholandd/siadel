@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TrProposal */
 
-$this->title = 'Create Tr Proposal';
+$this->title = 'Form Upload Proposal';
 $this->params['breadcrumbs'][] = ['label' => 'Tr Proposals', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

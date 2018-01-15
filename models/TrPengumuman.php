@@ -74,7 +74,7 @@ class TrPengumuman extends \yii\db\ActiveRecord
         return $this->hasOne(MsPengumuman::className(), ['id' => 'id_pengumuman']);
     }
 
-    public function getDataPengumuman()
+    public static function getDataPengumuman()
     {
         $now = date('Y-m-d H:i:s');
         $dataPengumuman = TrPengumuman::find()
@@ -87,7 +87,7 @@ class TrPengumuman extends \yii\db\ActiveRecord
         return $dataPengumuman;
     }
 
-    public function getDataBerita()
+    public static function getDataBerita()
     {
         $now = date('Y-m-d H:i:s');
         $dataPengumuman = TrPengumuman::find()
@@ -100,7 +100,7 @@ class TrPengumuman extends \yii\db\ActiveRecord
         return $dataPengumuman;
     }
 
-    public function getDataAgenda()
+    public static function getDataAgenda()
     {
         $now = date('Y-m-d H:i:s');
         $dataPengumuman = TrPengumuman::find()

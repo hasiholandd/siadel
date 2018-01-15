@@ -8,6 +8,7 @@ use app\models\TrProposalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * TrProposalController implements the CRUD actions for TrProposal model.
@@ -65,7 +66,17 @@ class TrProposalController extends Controller
     {
         $model = new TrProposal();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->url_dokumen_pengeluaran = UploadedFile::getInstance($model, 'url_dokumen_pengeluaran');
+            $path = Yii::getAlias('@uploadedfilesdir') ;
+            $time = time();
+            $model->url_dokumen_pengeluaran->saveAs($path .$time. '.' . $model->url_dokumen_pengeluaran->extension);
+            $model->url_dokumen_pengeluaran = $path .$time. '.' . $model->url_dokumen_pengeluaran->extension;
+
+            $model->tanggal_pengajuan = date("Y-m-d H:i:s");
+            $model->status_proposal = 0;
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

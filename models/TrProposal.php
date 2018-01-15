@@ -56,7 +56,7 @@ class TrProposal extends \yii\db\ActiveRecord
             'tanggal_pengajuan' => 'Tanggal Pengajuan',
             'tanggal_approval' => 'Tanggal Approval',
             'status_proposal' => 'Status Proposal',
-            'url_dokumen_pengeluaran' => 'Url Dokumen Pengeluaran',
+            'url_dokumen_pengeluaran' => 'Proposal',
             'history_proposal' => 'History Proposal',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

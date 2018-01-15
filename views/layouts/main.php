@@ -160,7 +160,7 @@ AppAsset::register($this);
                 'items' => [
                          ['label' => 'Lihat Status Proposal', 'url' => ['/lihat-proposal']],
                          '<li class="divider"></li>',
-                         ['label' => 'Upload Proposal', 'url' => ['/upload-proposal']],
+                         ['label' => 'Upload Proposal', 'url' => ['/tr-proposal/create']],
                     ],
                 ],
 
