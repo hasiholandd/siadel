@@ -28,10 +28,10 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'SI-IA-DEL',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse navbar-top',
         ],
     ]);
     $session = Yii::$app->session;
@@ -227,9 +227,24 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
+<div class="container">
+    <p class="pull-right"><a href="https://www.facebook.com/IADelOfficial/"><img src="/images/icon/facebook_circle-512.png" alt="Facebook" height="42" width="42"></p>
+</div>
+
+<footer class="footer" style="height:20%;">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left"><a href="/kpu">KPU IA-DEL</a></p>
+        <p class="pull-right"><a href="/forum">FORUM IA-DEL</a></p>
+    </div>
+
+    <div class="container">
+        <p class="pull-left"><a href="/charity">IA-DEL CHARITY</a></p>
+        <p class="pull-right"><a href="/ia-del-mengajar">IA-DEL MENGAJAR</a></p>
+    </div>
+    <br><br>
+
+    <div class="container">
+        <p class="pull-left">&copy; SI-IA-DEL <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
