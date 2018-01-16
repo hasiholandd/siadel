@@ -24,15 +24,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'id_proposal',
-            'approval_by',
+            //'id',
+            //'id_proposal',
+            //'approval_by',
             'tujuan_proposal:ntext',
             'keterangan:ntext',
-            // 'tanggal_pengajuan',
+            'tanggal_pengajuan',
             // 'tanggal_approval',
-            // 'status_proposal',
-            // 'url_dokumen_pengeluaran:ntext',
+            //'status_proposal',
+            array(
+                'attribute' => 'status_proposal',
+                //'type' => 'raw',
+                'value' => function($model) {
+                    if($model->status_proposal == 0){return "Tidak Setuju";}else{return "Setuju"; }
+                }
+
+            ),
+            //'url_dokumen_pengeluaran:ntext',
             // 'history_proposal:ntext',
             // 'created_at',
             // 'updated_at',

@@ -75,7 +75,7 @@ AppAsset::register($this);
                 [
                 'label' => 'Anggota',
                 'items' => [
-                         ['label' => 'Input Bulk Anggota', 'url' => ['/tr-anggota']],
+                         ['label' => 'Input Bulk Anggota', 'url' => ['/tr-anggota/create-bulk']],
                          '<li class="divider"></li>',
                          ['label' => 'Tambah Data Anggota', 'url' => ['/tr-anggota']],
                          '<li class="divider"></li>',
@@ -95,6 +95,8 @@ AppAsset::register($this);
                 ],
 
                 ['label' => 'Laporan Kegiatan', 'url' => ['/tr-laporan-kegiatan']],
+
+                ['label' => 'Review Proposal', 'url' => ['/tr-proposal']],
 
                 ['label' => 'Pengeluaran', 'url' => ['/tr-pengeluaran']],
 

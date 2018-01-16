@@ -95,7 +95,13 @@ class TrProposalController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $session = Yii::$app->session;
+            $model->approval_by = $session->get('id_user');
+            $model->tanggal_approval = date("Y-m-d H:i:s");
+
+            if($model->save())
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
