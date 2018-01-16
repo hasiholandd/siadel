@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\TrPengumuman */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tr Pengumumen', 'url' => ['index']];
+$this->title = "Data Pengumuman #". $model->judul_pengumuman;
+$this->params['breadcrumbs'][] = ['label' => 'View Pengumuman', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-pengumuman-view">
@@ -28,16 +28,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'id_pengumuman',
+            [
+                'label' => 'Dibuat oleh',
+                'value' => (isset($modelMsCreator->username) ? $modelMsCreator->username : "-"). "/" . (isset($modelMsCreator->email) ? $modelMsCreator->email : "-"),
+            ],
+            [
+                'label' => 'Disetujui oleh',
+                'value' => (isset($modelMsApproval->username) ? $modelMsApproval->username : "-" ). "/" . (isset($modelMsApproval->email) ? $modelMsApproval->email : "-"),
+            ],
+            [
+                'label' => 'StatusPengumuman',
+                'value' => ($model->flag == 1) ? 'Disetujui' : 'Belum / Tidak Disetujui',
+            ],
+            [
+                'label' => 'Jenis Pengumuman',
+                'value' => $modelMsPengumuman->nama_pengumuman,
+            ],
             'tanggal_mulai',
             'tanggal_selesai',
             'judul_pengumuman:ntext',
             'keterangan_pengumuman:ntext',
             'url_dokumen_pengumuman:ntext',
-            'flag',
-            'id_created',
-            'id_approval',
             'created_at',
             'updated_at',
         ],

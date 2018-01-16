@@ -5,25 +5,31 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TrPengumuman */
-/* @var $form yii\widgets\ActiveForm */
-?>
 
-<div class="tr-pengumuman-form">
+$this->title = 'Publish Data Pengumuman';
+$this->params['breadcrumbs'][] = ['label' => 'Pengumuman', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="tr-pengumuman-create">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    
+  <div class="tr-pengumuman-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-     <?= $form->field($model, 'id_pengumuman')->dropdownList($optionPengumuman,
-        ['prompt'=>'Pilih Jenis Pengumuman']);?>
 
      <?php
         echo '<label>Tanggal Mulai</label>';
         echo \kartik\widgets\DatePicker::widget([
             'model' => $model,
             'attribute' => 'tanggal_mulai',
+            'disabled' => true,
             'pluginOptions' => [
               'format' => 'yyyy-mm-d',
-              'todayHighlight' => true
-          ]
+              'todayHighlight' => true,
+            ] 
         ]);
         ?>
         <br>
@@ -33,6 +39,7 @@ use yii\widgets\ActiveForm;
         echo \kartik\widgets\DatePicker::widget([
             'model' => $model,
             'attribute' => 'tanggal_selesai',
+            'disabled' => true,
             'pluginOptions' => [
               'format' => 'yyyy-mm-d',
               'todayHighlight' => true
@@ -41,18 +48,20 @@ use yii\widgets\ActiveForm;
         ?>
         <br>
 
-    <?= $form->field($model, 'judul_pengumuman')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'judul_pengumuman')->textarea(['rows' => 6,'readonly' => true]) ?>
 
-    <?= $form->field($model, 'keterangan_pengumuman')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'keterangan_pengumuman')->textarea(['rows' => 6,'readonly' => true]) ?>
 
-    <?= $form->field($model, 'url_dokumen_pengumuman')->fileInput()->hint('Hint : File yang diunggah harus berukuran 5MB atau kurang. Dan memiliki ekstensi file .pdf/.word/.xlsx/.pptx/.jpg/.jpeg/.png') ?>
-
-    <?= "<p>".isset($model->url_dokumen_pengumuman) ? $model->url_dokumen_pengumuman : ""?>
+     <?= $form->field($model, 'flag')->dropdownList(['1' => 'Disetujui','0' => 'Tidak Disetujui'],
+        ['prompt'=>'Pilih']);?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Save' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Save' : 'Publish', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
+
+</div>
+
 
 </div>

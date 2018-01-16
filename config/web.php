@@ -50,7 +50,8 @@ $config = [
     ],
     'aliases' =>
         [
-            '@uploadedfilesdir' => '@app/uploads/csv'
+            '@uploadedfilesdir' => '@app/uploads/csv',
+            '@uploadedpengumumanfilesdir' => '@app/uploads/pengumuman/pengumuman_'
         ],
     'params' => $params,
 ];

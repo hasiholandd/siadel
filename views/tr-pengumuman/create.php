@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TrPengumuman */
 
-$this->title = 'Create Tr Pengumuman';
-$this->params['breadcrumbs'][] = ['label' => 'Tr Pengumumen', 'url' => ['index']];
+$this->title = 'Tambah Data Pengumuman';
+$this->params['breadcrumbs'][] = ['label' => 'Pengumuman', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-pengumuman-create">
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'optionPengumuman' => $optionPengumuman,
     ]) ?>
 
 </div>

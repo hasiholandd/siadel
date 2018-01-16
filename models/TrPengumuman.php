@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use app\models\MsPengumuman;
 /**
  * This is the model class for table "tr_pengumuman".
  *
@@ -52,12 +52,12 @@ class TrPengumuman extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_pengumuman' => 'Id Pengumuman',
+            'id_pengumuman' => 'Jenis Pengumuman',
             'tanggal_mulai' => 'Tanggal Mulai',
             'tanggal_selesai' => 'Tanggal Selesai',
             'judul_pengumuman' => 'Judul Pengumuman',
             'keterangan_pengumuman' => 'Keterangan Pengumuman',
-            'url_dokumen_pengumuman' => 'Url Dokumen Pengumuman',
+            'url_dokumen_pengumuman' => 'Dokumen Pengumuman',
             'flag' => 'Flag',
             'id_created' => 'Id Created',
             'id_approval' => 'Id Approval',
@@ -111,5 +111,11 @@ class TrPengumuman extends \yii\db\ActiveRecord
                             ->all();
 
         return $dataPengumuman;
+    }
+
+
+    public function getJenisPengumuman()
+    {
+        return $this->hasOne(MsPengumuman::className(), ['id' => 'id_pengumuman']);
     }
 }

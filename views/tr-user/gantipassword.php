@@ -8,8 +8,12 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<?php
+    $this->title = 'Ganti Password User';
+    $this->params['breadcrumbs'][] = $this->title;
+?>
 <div class="tr-user-form">
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?php $form = ActiveForm::begin(); ?>
 

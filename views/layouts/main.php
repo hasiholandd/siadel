@@ -66,9 +66,9 @@ AppAsset::register($this);
                 [
                 'label' => 'Pengumuman',
                 'items' => [
-                         ['label' => 'Tambah Pengumuman', 'url' => ['/tr-pengumuman']],
+                         ['label' => 'Tambah Pengumuman', 'url' => ['/tr-pengumuman/create']],
                          '<li class="divider"></li>',
-                         ['label' => 'Publish Pengumuman', 'url' => ['/tr-pengumuman']],
+                         ['label' => 'Publish Pengumuman', 'url' => ['/tr-pengumuman/index']],
                     ],
                 ],
 
@@ -231,7 +231,7 @@ AppAsset::register($this);
     <p class="pull-right"><a href="https://www.facebook.com/IADelOfficial/"><img src="/images/icon/facebook_circle-512.png" alt="Facebook" height="42" width="42"></p>
 </div>
 
-<footer class="footer" style="height:20%;">
+<footer class="footer" style="height:25%;">
     <div class="container">
         <p class="pull-left"><a href="/kpu">KPU IA-DEL</a></p>
         <p class="pull-right"><a href="/forum">FORUM IA-DEL</a></p>
