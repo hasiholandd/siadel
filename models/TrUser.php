@@ -98,7 +98,7 @@ class TrUser extends \yii\db\ActiveRecord
         $session->open();
         $userExist = TrUser::find()
                     ->where(['username' => Yii::$app->request->post('TrUser')['email']])
-                    ->where(['email' => Yii::$app->request->post('TrUser')['email']])
+                    ->orWhere(['email' => Yii::$app->request->post('TrUser')['email']])
                     ->andWhere(['password' => md5(Yii::$app->request->post('TrUser')['password'])]) 
                     ->one();
 

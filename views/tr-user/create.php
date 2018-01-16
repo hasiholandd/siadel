@@ -2,9 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-//use kartik\date\DatePicker;
-use kartik\date\DatePicker;
-
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TrUser */
@@ -21,19 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	    <?php $form = ActiveForm::begin(); ?>
 
-<?php 
-// usage without model
-echo '<label>Check Issue Date</label>';
-echo DatePicker::widget([
-	'name' => 'check_issue_date', 
-	'value' => date('d-M-Y', strtotime('+2 days')),
-	'options' => ['placeholder' => 'Select issue date ...'],
-	'pluginOptions' => [
-		'format' => 'dd-M-yyyy',
-		'todayHighlight' => true
-	]
-]);
-?>
 		<?= $form->field($model, 'id_anggota')->hint('Assign Anggota')->dropdownList($optionAnggota,
 	    ['prompt'=>'Plilh Anggota']);?>
 
