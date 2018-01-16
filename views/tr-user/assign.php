@@ -7,9 +7,9 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\TrUser */
 
 $this->title = 'Assign Role User: ' . $model->username;
-$this->params['breadcrumbs'][] = ['label' => 'Tr Users', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id, 'username' => $model->username, 'email' => $model->email]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => 'User', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Assign';
 ?>
 <div class="tr-user-update">
 
