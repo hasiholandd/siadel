@@ -175,7 +175,6 @@ class TrAnggotaController extends Controller
     public function actionUpdatedatadiri()
     {
         $session = Yii::$app->session;
-        //$model = $this->findModel($session->get('id_user'));
         $model = $this->findModel($session->get('id_user'));
                     
         $optionPekerjaan = ArrayHelper::map(MsPekerjaan::find()->all(), 'id', 'nama_pekerjaan');
