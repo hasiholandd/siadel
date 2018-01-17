@@ -8,6 +8,11 @@ use app\models\TrPengumumanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use app\models\MsPengumuman;
+use app\models\TrUser;
+use yii\web\UploadedFile;
+use yii\web\AssetManager;
 
 /**
  * TrPengumumanController implements the CRUD actions for TrPengumuman model.
@@ -51,8 +56,16 @@ class TrPengumumanController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $modelMsPengumuman = MsPengumuman::find()->where(['id' => $model->id_pengumuman])->one();
+        $modelMsCreator = TrUser::find()->where(['id' => $model->id_created])->one();
+        $modelMsApproval = TrUser::find()->where(['id' => $model->id_approval])->one();
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'modelMsPengumuman' => $modelMsPengumuman,
+            'modelMsCreator' => $modelMsCreator,
+            'modelMsApproval' => $modelMsApproval,
         ]);
     }
 
@@ -64,12 +77,27 @@ class TrPengumumanController extends Controller
     public function actionCreate()
     {
         $model = new TrPengumuman();
+        $session = Yii::$app->session;
+        $optionPengumuman = ArrayHelper::map(MsPengumuman::find()->all(), 'id', 'nama_pengumuman');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->url_dokumen_pengumuman = UploadedFile::getInstance($model, 'url_dokumen_pengumuman');
+
+            if($model->url_dokumen_pengumuman){
+                $path = Yii::getAlias('@uploadedpengumumanfilesdir') ;
+                $time = time();
+                $model->url_dokumen_pengumuman->saveAs($path .$time. '.' . $model->url_dokumen_pengumuman->extension);
+                $model->url_dokumen_pengumuman = $path .$time. '.' . $model->url_dokumen_pengumuman->extension;
+            }
+            $model->flag = 0; //belum publish
+            $model->id_created = $session->get('id_user'); //belum publish
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'optionPengumuman' => $optionPengumuman,
             ]);
         }
     }
@@ -83,12 +111,25 @@ class TrPengumumanController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $session = Yii::$app->session;
+        $optionPengumuman = ArrayHelper::map(MsPengumuman::find()->all(), 'id', 'nama_pengumuman');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->url_dokumen_pengumuman = UploadedFile::getInstance($model, 'url_dokumen_pengumuman');
+
+            if($model->url_dokumen_pengumuman){
+                $path = Yii::getAlias('@uploadedpengumumanfilesdir') ;
+                $time = time();
+                $model->url_dokumen_pengumuman->saveAs($path .$time. '.' . $model->url_dokumen_pengumuman->extension);
+                $model->url_dokumen_pengumuman = $path .$time. '.' . $model->url_dokumen_pengumuman->extension;
+            }
+            $model->updated_at = date('Y-m-d H:i:s');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'optionPengumuman' => $optionPengumuman,
             ]);
         }
     }
@@ -181,5 +222,25 @@ class TrPengumumanController extends Controller
         //         header("HTTP/1.0 404 Not Found");
         //         exit();
         // }
+    }
+
+    public function actionPublish($id)
+    {
+        $model = $this->findModel($id);
+        $id_creator = $model->id_created;
+        $session = Yii::$app->session;
+        $optionPengumuman = ArrayHelper::map(MsPengumuman::find()->all(), 'id', 'nama_pengumuman');
+
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->id_created = $id_creator;
+            $model->id_approval =   $session->get('id_user');
+            $model->updated_at = date('Y-m-d H:i:s');
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('publish', [
+                'model' => $model,
+            ]);
+        }
     }
 }

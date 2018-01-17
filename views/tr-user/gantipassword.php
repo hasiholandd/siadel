@@ -12,8 +12,12 @@ $this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view',
 $this->params['breadcrumbs'][] = 'Ganti Password';
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<?php
+    $this->title = 'Ganti Password User';
+    $this->params['breadcrumbs'][] = $this->title;
+?>
 <div class="tr-user-form">
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?php $form = ActiveForm::begin(); ?>
 

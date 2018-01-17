@@ -6,7 +6,7 @@ use yii\helpers\Url;
 use app\models\TrPengumuman;
 $this->title = 'Sistem Informasi Alumni IA-DEL';
 ?>
-<div class="site-index">
+
 
     <!-- <div class="jumbotron">
         <h1>Congratulations!</h1>
@@ -29,11 +29,11 @@ $this->title = 'Sistem Informasi Alumni IA-DEL';
         </div>
 
         <div class="item">
-          <?php echo Html::img('@web/images/banner/banner_1.jpg') ?>
+          <?php echo Html::img('@web/images/banner/banner_2.jpg') ?>
         </div>
 
         <div class="item">
-          <?php echo Html::img('@web/images/banner/banner_1.jpg') ?>
+          <?php echo Html::img('@web/images/banner/banner_3.jpg') ?>
         </div>
       </div>
 
@@ -47,7 +47,8 @@ $this->title = 'Sistem Informasi Alumni IA-DEL';
         <span class="sr-only">Next</span>
       </a>
     </div>
-
+    
+<div class="site-index">
     <div class="body-content">
 
         <div class="row">
