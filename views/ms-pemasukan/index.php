@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MsPemasukanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ms Pemasukans';
+$this->title = 'Daftar Master Pemasukan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ms-pemasukan-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ms Pemasukan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Master Pemasukan', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,8 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'nama_pemasukan',
-            'created_at',
-            'updated_at',
+            //'created_at',
+            //'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

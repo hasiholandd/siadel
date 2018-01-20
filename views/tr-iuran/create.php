@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TrIuran */
 
-$this->title = 'Create Tr Iuran';
+$this->title = 'Form Input Konfirmasi Pembayaran';
 $this->params['breadcrumbs'][] = ['label' => 'Tr Iurans', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+         'optionBank' => $optionBank,
+         'optionIuran' => $optionIuran,
     ]) ?>
-
+	
 </div>

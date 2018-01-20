@@ -86,7 +86,7 @@ AppAsset::register($this);
                 [
                 'label' => 'Iuran',
                 'items' => [
-                         ['label' => 'Tambah Iuran', 'url' => ['/tr-iuran']],
+                         ['label' => 'Tambah Iuran', 'url' => ['/ms-iuran/create']],
                          '<li class="divider"></li>',
                          ['label' => 'Blast Informasi Iuran', 'url' => ['/tr-iuran']],
                          '<li class="divider"></li>',
@@ -102,14 +102,14 @@ AppAsset::register($this);
 
                 ['label' => 'Pemasukan', 'url' => ['/tr-pemasukan']],
 
-                // [
-                // 'label' => 'Report',
-                // 'items' => [
-                //          ['label' => 'Report Pengeluaran', 'url' => ['/tr-report-pengeluaran']],
-                //          '<li class="divider"></li>',
-                //          ['label' => 'Report Pemasukan', 'url' => ['/tr-report-pemasukan']],
-                //     ],
-                // ],
+                [
+                'label' => 'Report',
+                'items' => [
+                          ['label' => 'Report Pengeluaran', 'url' => ['/tr-pengeluaran/report']],
+                          '<li class="divider"></li>',
+                          ['label' => 'Report Pemasukan', 'url' => ['/tr-pemasukan/report']],
+                     ],
+                 ],
 
                 [
                 'label' => 'Profil',
@@ -150,9 +150,9 @@ AppAsset::register($this);
                 [
                 'label' => 'Iuran',
                 'items' => [
-                         ['label' => 'Lihat Status Pembayaran', 'url' => ['/status-bayar']],
+                         ['label' => 'Lihat Status Pembayaran', 'url' => ['/tr-iuran/statusbayar']],
                          '<li class="divider"></li>',
-                         ['label' => 'Konfirmasi Pembayaran', 'url' => ['/konfirmasi-bayar']],
+                         ['label' => 'Konfirmasi Pembayaran', 'url' => ['/tr-iuran/konfirmasibayar']],
                     ],
                 ],
 

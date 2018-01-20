@@ -29,6 +29,7 @@ class TrIuran extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $nama_iuran;
     public static function tableName()
     {
         return 'tr_iuran';
@@ -53,21 +54,36 @@ class TrIuran extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_anggota' => 'Id Anggota',
-            'id_pemasukan' => 'Id Pemasukan',
-            'id_iuran' => 'Id Iuran',
+            'id_anggota' => 'Nama Anggota',
+            'id_pemasukan' => 'Pemasukan',
+            'id_iuran' => 'Nama Iuran',
             'jumlah_bayar' => 'Jumlah Bayar',
-            'tanggal_bayar' => 'Tanggal Bayar',
+            'tanggal_bayar' => 'Tanggal Pembayaran',
             'tanggal_konfirmasi_pembayaran' => 'Tanggal Konfirmasi Pembayaran',
             'tanggal_approval_pembayaran' => 'Tanggal Approval Pembayaran',
             'approval_by' => 'Approval By',
-            'id_bank_pengirim' => 'Id Bank Pengirim',
-            'id_bank_penerima' => 'Id Bank Penerima',
+            'id_bank_pengirim' => 'Bank Pengirim',
+            'id_bank_penerima' => 'Bank Penerima',
             'status_pembayaran' => 'Status Pembayaran',
-            'url_bukti_pembayaran' => 'Url Bukti Pembayaran',
+            'url_bukti_pembayaran' => 'Bukti Bayar',
             'history_pembayaran' => 'History Pembayaran',
-            'created_at' => 'Created At',
+            'created_at' => 'Created At',   
             'updated_at' => 'Updated At',
+            'nama_iuran' => 'nama_iuran'
         ];
+    }
+
+    public function getNamaAnggota()
+    {
+        return $this->hasOne(TrAnggota::className(), ['id' => 'id_anggota']);
+    }
+    public function getNamaApproved()
+    {
+        return $this->hasOne(TrAnggota::className(), ['id' => 'approval_by']);
+    }
+
+    public function getNamaIuran()
+    {
+        return $this->hasOne(MsIuran::className(), ['id' => 'id_iuran']);
     }
 }

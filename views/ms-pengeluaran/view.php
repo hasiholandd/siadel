@@ -7,31 +7,22 @@ use yii\widgets\DetailView;
 /* @var $model app\models\MsPengeluaran */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ms Pengeluarans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Daftar Master', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ms-pengeluaran-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Detail Master Pengeluaran <?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+   
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
             'nama_pengeluaran',
-            'created_at',
-            'updated_at',
+            //'created_at',
+            //'updated_at',
         ],
     ]) ?>
 
