@@ -16,6 +16,7 @@ use yii\db\Expression;
 use yii\web\UploadedFile;
 use yii\helpers\ArrayHelper;
 use yii\web\AssetManager;
+use app\Helper;
 /**
  * TrAnggotaController implements the CRUD actions for TrAnggota model.
  */
@@ -249,17 +250,17 @@ class TrAnggotaController extends Controller
                     'Agama' => 'agama',
                     'Jurusan' => function ($angg) {
                         $jur = MsJurusan::findOne(['id'=>$angg->jurusan]);
-                        return $jur->nama_jurusan;
+                        return isset($jur->nama_jurusan)? $jur->nama_jurusan:"Not Set";
                     },
                     //'Pendidikan Terakhir' => 'pendidikan_terakhir',
                     'Pendidikan Terakhir' => function ($angg) {
                         $jur = MsPendidikan::findOne(['id'=>$angg->pendidikan_terakhir]);
-                        return $jur->nama_pendidikan;
+                        return isset($jur->nama_pendidikan)? $jur->nama_pendidikan:"Not Set";
                     },
                     //'Pekerjaan' => 'pekerjaan',
                     'Pekerjaan' => function ($angg) {
                         $jur = MsPekerjaan::findOne(['id'=>$angg->pekerjaan]);
-                        return $jur->nama_pekerjaan;
+                        return isset($jur->nama_pekerjaan)? $jur->nama_pekerjaan:"Not Set";
                     },
                     'Nomor Handphone' => 'no_hp',
                     'Email' => 'email',
@@ -282,8 +283,10 @@ class TrAnggotaController extends Controller
             ]);
 
             if(count($values) != 0) {
-                $this->download_send_headers("export_angkatan_" . $title . "_" . date("Y-m-d") . ".csv");
-                echo $this->array2csv($values);
+                //$this->download_send_headers("export_angkatan_" . $title . "_" . date("Y-m-d") . ".csv");
+                Helper::download_send_headers("export_angkatan_" . $title . "_" . date("Y-m-d") . ".csv");
+                //echo $this->array2csv($values);
+                echo Helper::array2csv($values);
                 die();
             }
             return $this->render('export', [
@@ -297,37 +300,4 @@ class TrAnggotaController extends Controller
             ]);
         }
     }
-
-    function array2csv(array &$array)
-    {
-        if (count($array) == 0) {
-            return null;
-        }
-        ob_start();
-        $df = fopen("php://output", 'w');
-        fputcsv($df, array_keys(reset($array)));
-        foreach ($array as $row) {
-            fputcsv($df, $row);
-        }
-        fclose($df);
-        return ob_get_clean();
-    }
-
-    function download_send_headers($filename) {
-        // disable caching
-        $now = gmdate("D, d M Y H:i:s");
-        header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
-        header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
-        header("Last-Modified: {$now} GMT");
-
-        // force download
-        header("Content-Type: application/force-download");
-        header("Content-Type: application/octet-stream");
-        header("Content-Type: application/download");
-
-        // disposition / encoding on response body
-        header("Content-Disposition: attachment;filename={$filename}");
-        header("Content-Transfer-Encoding: binary");
-    }
-
 }
