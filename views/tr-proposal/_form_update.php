@@ -19,14 +19,13 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'tanggal_pengajuan')->textInput(['readonly'=>true]) ?>
 
     <?= $form->field($model,'url_dokumen_pengeluaran')->textInput(['readonly'=>true]) ?>
-    <?php
-    //if (file_exists($file)) {
-      //  Yii::$app->response->xSendFile($model->url_dokumen_pengeluaran);
-    //}
-    ?>
 
     <?php echo $form->field($model, 'status_proposal')->dropDownList(['1' => 'Setuju', '0' => 'Tidak Setuju']); ?>
 
+    <?php echo Html::a('Download Proposal',['/tr-proposal/download-uploaded-file', 'file'=>$model->url_dokumen_pengeluaran]
+        ,['class' => 'glyphicon glyphicon-download']
+    ); ?>
+<br>&nbsp;
     <div class="form-group">
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
         <?= Html::submitButton($model->isNewRecord ? 'Save' : 'Save', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
