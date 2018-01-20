@@ -68,10 +68,10 @@ class TrProposalController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->url_dokumen_pengeluaran = UploadedFile::getInstance($model, 'url_dokumen_pengeluaran');
-            $path = Yii::getAlias('@uploadedfilesdir') ;
-            $time = time();
+            $path = Yii::getAlias('@webroot').'/proposal/' ;
+            $time = date('Y-m-d')."-".time();
             $model->url_dokumen_pengeluaran->saveAs($path .$time. '.' . $model->url_dokumen_pengeluaran->extension);
-            $model->url_dokumen_pengeluaran = $path .$time. '.' . $model->url_dokumen_pengeluaran->extension;
+            $model->url_dokumen_pengeluaran = $time. '.' . $model->url_dokumen_pengeluaran->extension;
 
             $model->tanggal_pengajuan = date("Y-m-d H:i:s");
             $model->status_proposal = 0;
@@ -136,6 +136,15 @@ class TrProposalController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionDownloadUploadedFile(){
+        $uploaded_file = $_GET['file'];
+        $path = Yii::getAlias('@webroot').'/proposal/';
+        $file = $path.$uploaded_file;
+        if (file_exists($file)) {
+            Yii::$app->response->xSendFile($file);
         }
     }
 }

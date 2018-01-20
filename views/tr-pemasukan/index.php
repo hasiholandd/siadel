@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'id_pemasukan',
             'id_user',
-            'sumber_pemasukan',
+            'jumlah_pemasukan',
             'tanggal_pemasukan',
             // 'url_bukti_pemasukan:ntext',
             // 'created_at',

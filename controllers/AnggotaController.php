@@ -35,7 +35,7 @@ class AnggotaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AnggotaSearch();
+        $searchModel = new AnggotaSearch();//print_r( Yii::$app->request->queryParams);exit();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

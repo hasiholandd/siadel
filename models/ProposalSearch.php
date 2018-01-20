@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\TrPemasukan;
+use app\models\Proposal;
 
 /**
- * TrPemasukanSearch represents the model behind the search form about `app\models\TrPemasukan`.
+ * ProposalSearch represents the model behind the search form about `app\models\Proposal`.
  */
-class TrPemasukanSearch extends TrPemasukan
+class ProposalSearch extends Proposal
 {
     /**
      * @inheritdoc
@@ -18,8 +18,7 @@ class TrPemasukanSearch extends TrPemasukan
     public function rules()
     {
         return [
-            [['id', 'id_pemasukan', 'id_user', 'jumlah_pemasukan'], 'integer'],
-            [['tanggal_pemasukan', 'url_bukti_pemasukan', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'nama_proposal', 'tanggal'], 'integer'],
         ];
     }
 
@@ -41,7 +40,7 @@ class TrPemasukanSearch extends TrPemasukan
      */
     public function search($params)
     {
-        $query = TrPemasukan::find();
+        $query = Proposal::find();
 
         // add conditions that should always apply here
 
@@ -60,15 +59,9 @@ class TrPemasukanSearch extends TrPemasukan
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_pemasukan' => $this->id_pemasukan,
-            'id_user' => $this->id_user,
-            'jumlah_pemasukan' => $this->jumlah_pemasukan,
-            'tanggal_pemasukan' => $this->tanggal_pemasukan,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'nama_proposal' => $this->nama_proposal,
+            'tanggal' => $this->tanggal,
         ]);
-
-        $query->andFilterWhere(['like', 'url_bukti_pemasukan', $this->url_bukti_pemasukan]);
 
         return $dataProvider;
     }

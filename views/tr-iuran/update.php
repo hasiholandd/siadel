@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TrIuran */
 
-$this->title = 'Update Tr Iuran: ' . $model->id;
+$this->title = 'Approve Konfirmasi Pembayaran ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Tr Iurans', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+         'optionBank' => $optionBank,
+         'optionIuran' => $optionIuran,
     ]) ?>
 
 </div>

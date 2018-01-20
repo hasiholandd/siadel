@@ -139,8 +139,8 @@ class TrAnggotaController extends Controller
 
             if ( $model->file )
             {
-                $path = Yii::getAlias('@uploadedfilesdir') ;
-                $time = time();
+                $path = Yii::getAlias('@webroot').'/csv/anggota-bulk/' ;
+                $time = date('Y-m-d');
                 $model->file->saveAs($path .$time. '.' . $model->file->extension);
                 $model->file = $path .$time. '.' . $model->file->extension;
 
@@ -169,6 +169,17 @@ class TrAnggotaController extends Controller
             return $this->render('create-bulk', [
                 'model' => $model,
             ]);
+        }
+    }
+
+    public function actionDownloadTemplate(){
+
+        $path = Yii::getAlias('@webroot').'/templates';
+        $file = $path.'/template_anggota_upload.csv';
+        if (file_exists($file)) {
+            Yii::$app->response->xSendFile($file);
+        }else{
+            $this->render('download404');
         }
     }
 
