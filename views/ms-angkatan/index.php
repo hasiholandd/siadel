@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MsAngkatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ms Angkatans';
+$this->title = 'Master Data Angkatan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ms-angkatan-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ms Angkatan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Master Data Angkatan', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -27,8 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'tahun_angkatan',
             'nama_angkatan',
-            'created_at',
-            'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
