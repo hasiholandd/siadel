@@ -2,12 +2,17 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
+use app\models\MsJurusan;
+use app\models\MsPendidikan;
+use app\models\MsPekerjaan;
+use app\models\MsAngkatan;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TrAnggota */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tr Anggotas', 'url' => ['index']];
+$this->title = "Lihat Data diri " . $model->nama;
+$this->params['breadcrumbs'][] = ['label' => 'Data diri', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-anggota-view">
@@ -15,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['updatedatadiri', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -28,25 +33,39 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'nim',
             'nama',
             'tempat_lahir',
             'tanggal_lahir',
             'agama',
-            'jurusan',
-            'pendidikan_terakhir',
-            'pekerjaan',
-            'angkatan',
+            [
+                'label' => 'Jurusan',
+                'value' => MsJurusan::findOne($model->jurusan)->nama_jurusan,
+            ],
+            [
+                'label' => 'Pendidikan',
+                'value' => MsPendidikan::findOne($model->pendidikan_terakhir)->nama_pendidikan,
+            ],
+            [
+                'label' => 'Pekerjaan',
+                'value' => MsPekerjaan::findOne($model->pekerjaan)->nama_pekerjaan,
+            ],
+            [
+                'label' => 'Angkatan',
+                'value' => MsAngkatan::findOne($model->angkatan)->tahun_angkatan,
+            ],
             'no_hp',
             'email:email',
             'alamat',
             'alamat_domisili',
-            'status_kawin',
-            'status_hidup',
-            'url_foto:ntext',
-            'created_at',
-            'updated_at',
+            [
+                'label' => 'Status Kawin',
+                'value' => ($model->status_kawin == 1) ? 'Menikah' : 'Belum Menikah',
+            ],
+            [
+                'label' => 'Status Hidup',
+                'value' => ($model->status_hidup == 1) ? 'Hidup' : 'Meninggal',
+            ]
         ],
     ]) ?>
 

@@ -192,25 +192,28 @@ class TrAnggotaController extends Controller
         $optionPendidikan = ArrayHelper::map(MsPendidikan::find()->all(), 'id', 'nama_pendidikan');
         $optionJurusan = ArrayHelper::map(MsJurusan::find()->all(), 'id', 'nama_jurusan');
         $optionAngkatan = ArrayHelper::map(MsAngkatan::find()->all(), 'id', 'tahun_angkatan');
+        
+        if ($model->load(Yii::$app->request->post()) ) {
+          
+            $model->url_foto = UploadedFile::getInstance($model, 'url_foto');
+            $filename =  $model->id . "_" . date('YmdHis');
+            $path = Yii::getAlias('@uploadedprofilpicturedir') ;
+            
+            if(!empty($model->url_foto->extension)){
+              $model->url_foto->saveAs($path . $filename . '.' . $model->url_foto->extension);
+              $model->url_foto = $filename . '.' . $model->url_foto->extension;  
+            }else{
+              $model = $this->findModel($session->get('id_user'));
+              $model->url_foto = $model->url_foto;
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-             //echo $modelAnggota->validate();exit();
-            echo 'save';
-//          try{
-//              if ($modelAnggota->validate()) {
-//                  $modelAnggota->nama = 'Hasih';
-//                  $modelAnggota->update();
-                  //echo($modelAnggota->save());
-// exit();
-//                  //}
-                  return $this->redirect(['view', 'id' => $model->id]);
-//              //}
-//          }catch(Exception $e){
-//              echo $e->getMessage();
-//          }
+          $model->updated_at = date('Y-m-d H:i:s');
+          $model->save();
+          return $this->redirect('view', [
+                  'id' => $model->id
+                ] 
+              );
         } else {
-            echo 'xx';
-            //$model->save();
             return $this->render('updatedatadiri', [
                 'model' => $model,
                 'optionPekerjaan' => $optionPekerjaan,
