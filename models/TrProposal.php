@@ -49,7 +49,7 @@ class TrProposal extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_proposal' => 'Id Proposal',
+            'id_proposal' => 'Nama Proposal',
             'approval_by' => 'Approval By',
             'tujuan_proposal' => 'Tujuan Proposal',
             'keterangan' => 'Keterangan',

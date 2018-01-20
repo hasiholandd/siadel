@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TrLaporanKegiatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tr Laporan Kegiatans';
+$this->title = 'Laporan Kegiatan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-laporan-kegiatan-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tr Laporan Kegiatan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(' Tambah Data Laporan Kegiatan', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,19 +24,44 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'id_proposal',
-            'approval_by',
+            //'id',
+            [ 
+                  'attribute'=>'id_proposal',
+                  'header' => 'Nama proposal',  
+                  'value'=>    function ($model) {
+                        return  \app\models\TrProposal::findOne($model->id_proposal)->tujuan_proposal;
+                    }
+            ],
+            //'approval_by',
+            //'tujuan_proposal',
             'keterangan_approval:ntext',
             'keterangan_kegiatan:ntext',
-            // 'tanggal_pengajuan',
+            [
+                'attribute' => 'tanggal_pengajuan',
+                'format' => ['date', 'php:d/m/Y']
+            ],
             // 'tanggal_approval',
-            // 'url_dokumen_laporan_kegiatan:ntext',
+            //'url_dokumen_laporan_kegiatan:ntext',
             // 'history_laporan:ntext',
             // 'created_at',
             // 'updated_at',
-
             ['class' => 'yii\grid\ActionColumn'],
+            // [
+            //     'class' => 'yii\grid\ActionColumn',
+            //     'template' => '{update}{delete}',
+            //     'buttons' => [
+            //         'update' => function ($url, $model, $key) {
+            //             return Html::a(
+            //                 '<span class="glyphicon glyphicon-eye-open"></span>',
+            //                 $url, 
+            //                 [
+            //                     'title' => 'View',
+            //                     'data-pjax' => '0',
+            //                 ]
+            //             );
+            //             //return $model->status === 'editable' ? Html::a('Update', $url) : '';
+            //         },                ],
+            // ],
         ],
     ]); ?>
 </div>

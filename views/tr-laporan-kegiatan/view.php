@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\TrLaporanKegiatan */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tr Laporan Kegiatans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Tr Laporan Kegiatan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-laporan-kegiatan-view">

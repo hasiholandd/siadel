@@ -12,28 +12,33 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_proposal')->textInput() ?>
+     <?= $form->field($model, 'id_proposal')->dropdownList($optionProposal,
+        ['prompt'=>'Pilih Proposal'])->label('Nama Proposal');?>
 
-    <?= $form->field($model, 'approval_by')->textInput() ?>
+    <?= $form->field($model, 'approval_by')->dropdownList($optionUserApproval,
+        ['prompt'=>'Pilih Approval'])->label('Approval'); ?>
 
     <?= $form->field($model, 'keterangan_approval')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'keterangan_kegiatan')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'tanggal_pengajuan')->textInput() ?>
+    <?php
+        echo '<label>Tanggal Pengajuan</label>';
+        echo \kartik\widgets\DatePicker::widget([
+            'model' => $model,
+            'attribute' => 'tanggal_pengajuan',
+            'pluginOptions' => [
+              'format' => 'yyyy-mm-dd',
+              'todayHighlight' => true
+          ]
+        ]);
+        ?>
+        <br>
 
-    <?= $form->field($model, 'tanggal_approval')->textInput() ?>
-
-    <?= $form->field($model, 'url_dokumen_laporan_kegiatan')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'history_laporan')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <?= $form->field($model, 'url_dokumen_laporan_kegiatan')->fileInput()->hint('Mohon upload file dengan ekstensi .pdf/.docx/.xlsx/.pptx'); ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Simpan' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
