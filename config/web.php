@@ -52,7 +52,8 @@ $config = [
         [
             '@uploadedfilesdir' => '@app/uploads/csv',
             '@uploadedpengumumanfilesdir' => '@app/uploads/pengumuman/pengumuman_',
-            '@uploadedprofilpicturedir' => '@app/web/uploads/profil_picture/'
+            '@uploadedprofilpicturedir' => '@app/web/uploads/profil_picture/',
+            '@uploadedlaporankegiatandir' => '@app/web/uploads/laporan_kegiatan/'
         ],
     'params' => $params,
 ];
