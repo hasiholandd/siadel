@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TrLaporanKegiatan */
 
-$this->title = 'Create Tr Laporan Kegiatan';
-$this->params['breadcrumbs'][] = ['label' => 'Tr Laporan Kegiatans', 'url' => ['index']];
+$this->title = 'Tambah Data Laporan Kegiatan';
+$this->params['breadcrumbs'][] = ['label' => 'Tambah Data  Laporan Kegiatan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-laporan-kegiatan-create">
@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'optionProposal' => $optionProposal,
+        'optionUserApproval' => $optionUserApproval 
     ]) ?>
 
 </div>

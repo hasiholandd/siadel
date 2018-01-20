@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\MsAngkatan */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ms Angkatans', 'url' => ['index']];
+$this->title = "Data angkatan " . $model->tahun_angkatan;
+$this->params['breadcrumbs'][] = ['label' => 'Master Data Angkatan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ms-angkatan-view">

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MsBankSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ms Banks';
+$this->title = 'Master Data Bank';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ms-bank-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ms Bank', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Master Data Bank', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
