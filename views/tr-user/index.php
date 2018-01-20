@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Tambah User', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Export User', ['tr-anggota/export'], ['class'=>'btn btn-primary']) ?>
+        <?= Html::a('Export Anggota', ['tr-anggota/export'], ['class'=>'btn btn-primary']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
