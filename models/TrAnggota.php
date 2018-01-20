@@ -48,8 +48,8 @@ class TrAnggota extends \yii\db\ActiveRecord
             [['jurusan', 'pendidikan_terakhir', 'pekerjaan', 'angkatan', 'status_kawin', 'status_hidup'], 'integer'],
             [['url_foto'], 'string'],
             [['nim', 'nama', 'tempat_lahir', 'agama', 'no_hp', 'email', 'alamat', 'alamat_domisili'], 'string', 'max' => 255],
-            [['file'],'required'],
-            [['file'],'file','extensions'=>'csv','maxSize'=>1024 * 1024 * 5],
+           // [['file'],'required'],
+           // [['file'],'file','extensions'=>'csv','maxSize'=>1024 * 1024 * 5],
         ];
     }
 
@@ -75,7 +75,7 @@ class TrAnggota extends \yii\db\ActiveRecord
             'alamat_domisili' => 'Alamat Domisili',
             'status_kawin' => 'Status Kawin',
             'status_hidup' => 'Status Hidup',
-            'url_foto' => 'Url Foto',
+            'url_foto' => 'Upload Foto Profil',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'file'=>'Pilih File',
