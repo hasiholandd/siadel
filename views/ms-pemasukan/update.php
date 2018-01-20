@@ -6,13 +6,13 @@ use yii\helpers\Html;
 /* @var $model app\models\MsPemasukan */
 
 $this->title = 'Update Ms Pemasukan: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ms Pemasukans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Daftar Master Pemasukan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="ms-pemasukan-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Update Pemasukan </h1>
 
     <?= $this->render('_form', [
         'model' => $model,

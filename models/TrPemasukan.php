@@ -10,7 +10,7 @@ use Yii;
  * @property integer $id
  * @property integer $id_pemasukan
  * @property integer $id_user
- * @property integer $sumber_pemasukan
+ * @property integer $jumlah_pemasukan
  * @property string $tanggal_pemasukan
  * @property string $url_bukti_pemasukan
  * @property string $created_at
@@ -32,7 +32,7 @@ class TrPemasukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_pemasukan', 'id_user', 'sumber_pemasukan'], 'integer'],
+            [['id_pemasukan', 'id_user', 'jumlah_pemasukan'], 'integer'],
             [['tanggal_pemasukan', 'created_at', 'updated_at'], 'safe'],
             [['url_bukti_pemasukan'], 'string'],
         ];
@@ -47,7 +47,7 @@ class TrPemasukan extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_pemasukan' => 'Id Pemasukan',
             'id_user' => 'Id User',
-            'sumber_pemasukan' => 'Sumber Pemasukan',
+            'jumlah_pemasukan' => 'Jumlah Pemasukan',
             'tanggal_pemasukan' => 'Tanggal Pemasukan',
             'url_bukti_pemasukan' => 'Url Bukti Pemasukan',
             'created_at' => 'Created At',

@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_user')->textInput() ?>
 
-    <?= $form->field($model, 'sumber_pemasukan')->textInput() ?>
+    <?= $form->field($model, 'jumlah_pemasukan')->textInput() ?>
 
     <?= $form->field($model, 'tanggal_pemasukan')->textInput() ?>
 

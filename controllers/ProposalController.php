@@ -3,20 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\TrPemasukan;
-use app\models\TrPemasukanSearch;
+use app\models\Proposal;
+use app\models\ProposalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\MsBank;
-use app\models\MsIuran;
-use app\models\MsPemasukan;
-use app\models\trIuran;
-use yii\helpers\ArrayHelper;
+
 /**
- * TrPemasukanController implements the CRUD actions for TrPemasukan model.
+ * ProposalController implements the CRUD actions for Proposal model.
  */
-class TrPemasukanController extends Controller
+class ProposalController extends Controller
 {
     /**
      * @inheritdoc
@@ -34,12 +30,12 @@ class TrPemasukanController extends Controller
     }
 
     /**
-     * Lists all TrPemasukan models.
+     * Lists all Proposal models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TrPemasukanSearch();
+        $searchModel = new ProposalSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +45,7 @@ class TrPemasukanController extends Controller
     }
 
     /**
-     * Displays a single TrPemasukan model.
+     * Displays a single Proposal model.
      * @param integer $id
      * @return mixed
      */
@@ -61,15 +57,16 @@ class TrPemasukanController extends Controller
     }
 
     /**
-     * Creates a new TrPemasukan model.
+     * Creates a new Proposal model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new TrPemasukan();
+        $model = new Proposal();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->tanggal = '';
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -79,7 +76,7 @@ class TrPemasukanController extends Controller
     }
 
     /**
-     * Updates an existing TrPemasukan model.
+     * Updates an existing Proposal model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,9 +94,8 @@ class TrPemasukanController extends Controller
         }
     }
 
-    
     /**
-     * Deletes an existing TrPemasukan model.
+     * Deletes an existing Proposal model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -112,37 +108,18 @@ class TrPemasukanController extends Controller
     }
 
     /**
-     * Finds the TrPemasukan model based on its primary key value.
+     * Finds the Proposal model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return TrPemasukan the loaded model
+     * @return Proposal the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = TrPemasukan::findOne($id)) !== null) {
+        if (($model = Proposal::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    public function actionReport()
-    {
-      
-        $optionBank = ArrayHelper::map(MsBank::find()->all(), 'id', 'nama_bank');
-        $optionIuran = ArrayHelper::map(MsIuran::find()->all(), 'id','nama_iuran');
-
-        $modelPemasukan = ArrayHelper::map(MsPemasukan::find()->all(), 'id', 'nama_pemasukan');
-    //    print_r($model);die();
-        $modelIuran = new MsIuran();
-        
-            return $this->render('report', [
-                'modelPemasukan' =>  $modelPemasukan,
-                'optionBank' => $optionBank,
-                'optionIuran' => $optionIuran,
-                'iuran' => $modelIuran ,
-            ]);
-        
-    }
-
 }

@@ -27,6 +27,7 @@ class Anggota extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+   
     public static function tableName()
     {
         return 'anggota';
@@ -42,7 +43,7 @@ class Anggota extends \yii\db\ActiveRecord
             [['id'], 'integer'],
             [['tanggal_lahir', 'updated_at', 'created_at'], 'safe'],
             [['nama', 'email', 'agama', 'prodi'], 'string', 'max' => 100],
-            [['tempat', 'pekerjaan', 'alamat'], 'string', 'max' => 255],
+            [['tempat', 'pekerjaan', 'alamat','x'], 'string', 'max' => 255],
             [['angkatan'], 'string', 'max' => 4],
             [['no_hp'], 'string', 'max' => 25],
             [['lulusan'], 'string', 'max' => 2],

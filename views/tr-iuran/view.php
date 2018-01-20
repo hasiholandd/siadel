@@ -12,26 +12,21 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-iuran-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>View Konfirmasi Pembayaran <?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
+   
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'id_anggota',
-            'id_pemasukan',
-            'id_iuran',
+            
+            [
+                'label' => 'Nama',
+                'value' => $model->namaAnggota->nama,
+            ],
+            [
+                'label' => 'Iuran',
+                'value' => $model->namaIuran->nama_iuran,
+            ],
             'jumlah_bayar',
             'tanggal_bayar',
             'tanggal_konfirmasi_pembayaran',
@@ -46,5 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
         ],
     ]) ?>
+    
 
 </div>

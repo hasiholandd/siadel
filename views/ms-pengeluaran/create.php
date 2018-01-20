@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\MsPengeluaran */
 
-$this->title = 'Create Ms Pengeluaran';
-$this->params['breadcrumbs'][] = ['label' => 'Ms Pengeluarans', 'url' => ['index']];
+$this->title = 'Tambah Master Pengeluaran';
+$this->params['breadcrumbs'][] = ['label' => 'Daftar Master Pengeluaran', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ms-pengeluaran-create">
