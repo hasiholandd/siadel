@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    <?php $form = ActiveForm::begin(); ?>
 
 		<?= $form->field($model, 'id_anggota')->hint('Assign Anggota')->dropdownList($optionAnggota,
-	    ['prompt'=>'Plilh Anggota']);?>
+	    ['prompt'=>'Pilih Anggota']);?>
 
 	    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 

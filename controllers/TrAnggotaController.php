@@ -224,4 +224,110 @@ class TrAnggotaController extends Controller
         }
     }
 
+
+    public function actionExport()
+    {
+        $model = new TrAnggota();
+
+        $angkatan = ArrayHelper::map(MsAngkatan::find()->all(), 'id', 'tahun_angkatan');
+        $angkatan[0] = "Semua";
+
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->angkatan == 0){
+                $angg = TrAnggota::find()->all();
+                $title = "ALL";
+            }else {
+                $angg = TrAnggota::find()->where(['angkatan' => $model->angkatan])->all();
+                $title = MsAngkatan::findOne(['id', $model->angkatan])->tahun_angkatan;
+            }
+            $values  = ArrayHelper::toArray($angg, [
+                'app\models\TrAnggota' => [
+                    'NIM' => 'nim',
+                    'Nama' => 'nama',
+                    'Tempat Lahir' => 'tempat_lahir',
+                    'Tanggal Lahir' => 'tanggal_lahir',
+                    'Agama' => 'agama',
+                    'Jurusan' => function ($angg) {
+                        $jur = MsJurusan::findOne(['id'=>$angg->jurusan]);
+                        return $jur->nama_jurusan;
+                    },
+                    //'Pendidikan Terakhir' => 'pendidikan_terakhir',
+                    'Pendidikan Terakhir' => function ($angg) {
+                        $jur = MsPendidikan::findOne(['id'=>$angg->pendidikan_terakhir]);
+                        return $jur->nama_pendidikan;
+                    },
+                    //'Pekerjaan' => 'pekerjaan',
+                    'Pekerjaan' => function ($angg) {
+                        $jur = MsPekerjaan::findOne(['id'=>$angg->pekerjaan]);
+                        return $jur->nama_pekerjaan;
+                    },
+                    'Nomor Handphone' => 'no_hp',
+                    'Email' => 'email',
+                    'Alamat' => 'alamat',
+                    'Alamat Domisili' => 'alamat_domisili',
+                    //'Status Kawin' => 'status_kawin',
+                    'Status Kawin' => function ($angg) {
+                        if($angg->status_kawin == 0) return "Belum Kawin";
+                        return "Kawin";
+                    },
+                    //'Status Hidup' => 'status_hidup',
+                    'Status Hidup' => function ($angg) {
+                        if($angg->status_hidup == 0) return "Meninggal";
+                        return "Hidup";
+                    },
+                    /*'length' => function ($angg) {
+                        return strlen($angg->content);
+                    },*/
+                ],
+            ]);
+
+            if(count($values) != 0) {
+                $this->download_send_headers("export_angkatan_" . $title . "_" . date("Y-m-d") . ".csv");
+                echo $this->array2csv($values);
+                die();
+            }
+            return $this->render('export', [
+                'model' => $model,
+                'angkatan' => $angkatan,
+            ]);
+        } else {
+            return $this->render('export', [
+                'model' => $model,
+                'angkatan' => $angkatan,
+            ]);
+        }
+    }
+
+    function array2csv(array &$array)
+    {
+        if (count($array) == 0) {
+            return null;
+        }
+        ob_start();
+        $df = fopen("php://output", 'w');
+        fputcsv($df, array_keys(reset($array)));
+        foreach ($array as $row) {
+            fputcsv($df, $row);
+        }
+        fclose($df);
+        return ob_get_clean();
+    }
+
+    function download_send_headers($filename) {
+        // disable caching
+        $now = gmdate("D, d M Y H:i:s");
+        header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
+        header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
+        header("Last-Modified: {$now} GMT");
+
+        // force download
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+
+        // disposition / encoding on response body
+        header("Content-Disposition: attachment;filename={$filename}");
+        header("Content-Transfer-Encoding: binary");
+    }
+
 }
