@@ -56,9 +56,16 @@ class TrIuranController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->actionApprove($id);
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
     }
 
     /**
@@ -145,14 +152,15 @@ class TrIuranController extends Controller
             $session = Yii::$app->session;
             $id = $session->get('id_anggota');
             $model->id_anggota=  $id;
-            $model->tanggal_konfirmasi_pembayaran=  date("Y-m-d h:i:sa");
+            $model->tanggal_konfirmasi_pembayaran=  date("Y-m-d h:i:s");
+            $model->status_pembayaran = 0;
 
             if ( $model->url_bukti_pembayaran )
             {
-                $path = Yii::getAlias('@uploadedimagekonfirmasipembayarandir');
-                $time = time();
+                $path = Yii::getAlias('@webroot'.'/uploads/konfirmasi-pembayaran/');
+                $time = date('Y-m-d')."-".time();
                 $model->url_bukti_pembayaran->saveAs($path .$time. '.' . $model->url_bukti_pembayaran->extension);
-                $model->url_bukti_pembayaran = $path .$time. '.' . $model->url_bukti_pembayaran->extension;
+                $model->url_bukti_pembayaran = $time. '.' . $model->url_bukti_pembayaran->extension;
             }
 
             $model->save();
@@ -191,14 +199,13 @@ class TrIuranController extends Controller
         $model = $this->findModel($id);
 
         $model->status_pembayaran = 1;
-        $model->tanggal_approval_pembayaran = date("Y-m-d h:i:sa");
+        $model->tanggal_approval_pembayaran = date("Y-m-d h:i:s");
 
         $session = Yii::$app->session;
-        $id = $session->get('id_anggota');
+        $id = $session->get('id_user');
         $model->approval_by=  $id;
     //    $model->save();
-
-     if ($model->save()) {
+        if ($model->save()) {
             $modeltrpemasukan = new TrPemasukan();
             $modeltrpemasukan->id_pemasukan = 1;
             $modeltrpemasukan->id_user = $model->approval_by;
@@ -208,10 +215,10 @@ class TrIuranController extends Controller
             $modeltrpemasukan->save();
             
             return $this->redirect(['index', 'id' => $model->id]);
-     } else {
-     return $this->render('index', [
-              'model' => $model,
-         ]);
+        } else {
+             return $this->render('index', [
+                 'model' => $model,
+             ]);
         }
     }
 

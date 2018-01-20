@@ -35,7 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
             
             'tanggal_bayar',
             'tanggal_konfirmasi_pembayaran',
-            'status_pembayaran',
+            //'status_pembayaran',
+            array(
+                'attribute' => 'status_pembayaran',
+                //'type' => 'raw',
+                'value' => function($model) {
+                    if($model->status_pembayaran == 0){return "Belum/Tidak Disetujui";}else{return "Disetujui"; }
+                }
+
+            ),
             'tanggal_approval_pembayaran',
            
             [

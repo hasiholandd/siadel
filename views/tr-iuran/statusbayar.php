@@ -30,7 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
            
             'jumlah_bayar',
-            'status_pembayaran',
+            //'status_pembayaran',
+            array(
+                'attribute' => 'status_pembayaran',
+                //'type' => 'raw',
+                'value' => function($model) {
+                    if($model->status_pembayaran == 0){return "Belum/Tidak Disetujui";}else{return "Disetujui"; }
+                }
+
+            ),
             //[
                 //'label' => 'Status Pembayaran',
                 //'value' => ($model->status_pembayaran== 1) ? 'Disetujui' : 'Belum / Tidak Disetujui',
