@@ -21,6 +21,9 @@ class TrPemasukan extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public $tanggal_awal;
+    public $tanggal_akhir;
     public static function tableName()
     {
         return 'tr_pemasukan';
@@ -52,6 +55,8 @@ class TrPemasukan extends \yii\db\ActiveRecord
             'url_bukti_pemasukan' => 'Url Bukti Pemasukan',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'tangal_awal' => 'Tanggal Awal',
+            'tangal_akhir' => 'Tanggal Akhir'
         ];
     }
 }

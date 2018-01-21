@@ -220,7 +220,6 @@ class TrPengeluaranController extends Controller
         } else{
             die;
         }
-        
     }
 
 }

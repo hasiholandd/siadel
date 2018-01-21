@@ -72,7 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'id_pengeluaran')->dropdownList($optionJenisPengeluaran,
         ['prompt'=>'Pilih Jenis Pengeluaran',
-         'id' => 'id_pengeluaran']);?>
+         'id' => 'id_pengeluaran',
+         ])->label('Jenis Pengeluaran');?>
      <?php
         echo '<label>Tanggal Awal</label>';
         echo \kartik\widgets\DatePicker::widget([
