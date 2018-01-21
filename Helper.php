@@ -2,7 +2,7 @@
 namespace app;
 
 class Helper{
-    public static function array2csv(array &$array)
+    public static function array2csv(array $array)
     {
         if (count($array) == 0) {
             return null;

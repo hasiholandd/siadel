@@ -8,6 +8,8 @@ use app\models\TrPengeluaranSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use app\Helper;
 
 /**
  * TrPengeluaranController implements the CRUD actions for TrPengeluaran model.
@@ -121,4 +123,103 @@ class TrPengeluaranController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
+    
+    public function actionReport()
+    {
+        $model = new TrPengeluaran();
+        $optionJenisPengeluaran = ArrayHelper::map(\app\models\MsPengeluaran::find()->all(), 'id', 'nama_pengeluaran');
+
+        //  if (Yii::$app->request->post('id_pengeluaran') != '') {
+        //    // $dataPengeluaran = \app\models\TrPengeluaran::find()->all();
+           
+        //    //  $filename = "export_data_pengeluaran" . "_" . date("Y-m-d"). ".csv";
+        //    //  $fp = fopen($filename, 'w');
+
+        //    //  $counter   = 1;
+        //    //  $array[0][] = "nomor";
+        //    //  $array[0][] = "jumlah_pengeluaran";
+        //    //  $array[0][] = "tanggal_pengeluaran";
+        //    //  $array[0][] = "keterangan_pengeluaran";
+        //    //  foreach ($dataPengeluaran as $data) {
+        //    //      $array[$counter][] = $counter;
+        //    //      $array[$counter][] = $data->jumlah_pengeluaran;
+        //    //      $array[$counter][] = $data->tanggal_pengeluaran;
+        //    //      $array[$counter][] = $data->keterangan_pengeluaran;
+        //    //      $counter++;   
+        //    //  }
+        //    //  foreach ($array as $fields) {
+        //    //      fputcsv($fp, $fields);
+        //    //  }
+            
+        //    //  fclose($fp);
+
+        //    //  $this->download_send_headers($filename);
+        //  }
+        if(Yii::$app->request->post('search') == 1){
+            $dataPengeluaran = \app\models\TrPengeluaran::find()
+                ->where(['between', 'tanggal_pengeluaran', Yii::$app->request->post('tanggal_awal')." 00:00:00", Yii::$app->request->post('tanggal_akhir')." 23:59:00" ])
+                ->andWhere(['id_pengeluaran' => Yii::$app->request->post('id_pengeluaran') ])
+                ->all();
+
+            $msPengeluaran = \app\models\MsPengeluaran::find()
+                ->where(['id' => Yii::$app->request->post('id_pengeluaran') ])
+                ->one();
+            $data = "<h2>Hasil Pencarian : ". $msPengeluaran->nama_pengeluaran. "</h2>";
+            
+            $data .= " <table class=\"table table-striped\">
+                        <thead>
+                          <tr>
+                            <th>Jumlah Pengeluaran</th>
+                            <th>Tanggal Pengeluaran</th>
+                            <th>Keterangan Pengeluaran</th>
+                          </tr>
+                        </thead>
+                        <tbody>";
+            foreach ($dataPengeluaran as $val) {
+                $data .= "<tr>";
+                $data .= "<td   style=\"text-align:center\">". number_format($val->jumlah_pengeluaran , 0, ".", ",")."</td>";
+                $data .= "<td>". $val->tanggal_pengeluaran ."</td>";
+                $data .= "<td>". $val->keterangan_pengeluaran ."</td>";
+                $data .= "</tr>";
+            }
+            $data .= "</tbody></table>";
+            $data .= "<h3><b>Jumlah data pencarian : ". count($dataPengeluaran)."</b></h3>";
+            echo json_encode($data);
+        }
+        else {
+            return $this->render('report', [
+                'model' => $model,
+                'optionJenisPengeluaran' => $optionJenisPengeluaran,
+            ]);
+        }
+    }
+
+    public function actionDownload() {
+         
+        if(Yii::$app->request->post('TrPengeluaran')['id_pengeluaran'] && Yii::$app->request->post('TrPengeluaran')['tanggal_awal'] && Yii::$app->request->post('TrPengeluaran')['tanggal_akhir'] ){
+
+            $dataPengeluaran = \app\models\TrPengeluaran::find()
+                ->where(['between', 'tanggal_pengeluaran', Yii::$app->request->post('TrPengeluaran')['tanggal_awal']." 00:00:00", Yii::$app->request->post('TrPengeluaran')['tanggal_akhir']." 23:59:00" ])
+                ->andWhere(['id_pengeluaran' => Yii::$app->request->post('TrPengeluaran')['id_pengeluaran'] ])
+                ->all();
+
+            $data = ArrayHelper::toArray($dataPengeluaran, [
+                'app\models\TrPengeluaran' => [
+                    'jumlah_pengeluaran',
+                    'tanggal_pengeluaran',
+                    'keterangan_pengeluaran',
+                ],
+            ]);
+
+            $filename = "export_data_pengeluaran" . "_" . date("Y-m-d"). ".csv";
+            Helper::download_send_headers($filename);
+
+            echo  Helper::array2csv($data);
+        } else{
+            die;
+        }
+    }
+
 }
