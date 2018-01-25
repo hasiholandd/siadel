@@ -40,7 +40,8 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Home', 'url' => ['/site/index']],
-               [
+                ['label' => 'Dashboard', 'url' => ['/dashboard']],
+                [
                 'label' => 'Master Data',
                 'items' => [
                          ['label' => 'Master Angkatan', 'url' => ['/ms-angkatan']],
