@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MsIuranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Daftar Master Iuran';
+$this->title = 'Master Data Iuran';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ms-iuran-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Tambah Master Iuran', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Master Data Iuran', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

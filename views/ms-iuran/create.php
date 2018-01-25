@@ -6,7 +6,7 @@ use yii\widget\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\MsIuran */
 
-$this->title = 'Tambah Master Iuran';
+$this->title = 'Tambah Master Data Iuran';
 $this->params['breadcrumbs'][] = ['label' => 'Daftar Master Iuran', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

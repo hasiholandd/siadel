@@ -201,4 +201,12 @@ class TrPemasukanController extends Controller
         }
     }
 
+    public function actionViewreport()
+    {
+        $model = new MsIuran;
+        print_r($_POST['id']); die(); 
+       
+    }
+
+
 }

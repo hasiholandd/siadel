@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\MsPendidikan */
 
-$this->title = 'Create Ms Pendidikan';
-$this->params['breadcrumbs'][] = ['label' => 'Ms Pendidikans', 'url' => ['index']];
+$this->title = 'Tambah Master Data Pendidikan';
+$this->params['breadcrumbs'][] = ['label' => 'Master Data Pendidikan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ms-pendidikan-create">

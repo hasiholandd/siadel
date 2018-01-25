@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\MsAngkatan */
+/* @var $model app\models\Proposal */
 
-$this->title = 'Tambah Master Data Angkatan';
-$this->params['breadcrumbs'][] = ['label' => 'Master Data Angkatan', 'url' => ['index']];
+$this->title = 'Create Proposal';
+$this->params['breadcrumbs'][] = ['label' => 'Proposals', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ms-angkatan-create">
+<div class="proposal-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
