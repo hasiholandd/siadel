@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property integer $id_proposal
+ * @property integer $id_anggota
  * @property integer $approval_by
  * @property string $tujuan_proposal
  * @property string $keterangan
@@ -36,7 +37,7 @@ class TrProposal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_proposal', 'approval_by', 'status_proposal'], 'integer'],
+            [['id_proposal', 'id_anggota', 'approval_by', 'status_proposal'], 'integer'],
             [['tujuan_proposal', 'keterangan', 'url_dokumen_pengeluaran', 'history_proposal'], 'string'],
             [['tanggal_pengajuan', 'tanggal_approval', 'created_at', 'updated_at'], 'safe'],
         ];
@@ -50,6 +51,7 @@ class TrProposal extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_proposal' => 'Nama Proposal',
+            'id_anggota' => 'Nama Anggota',
             'approval_by' => 'Approval By',
             'tujuan_proposal' => 'Tujuan Proposal',
             'keterangan' => 'Keterangan',

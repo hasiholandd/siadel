@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\TrProposal;
 use app\models\TrProposalSearch;
+use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -146,5 +147,17 @@ class TrProposalController extends Controller
         if (file_exists($file)) {
             Yii::$app->response->xSendFile($file);
         }
+    }
+
+    public function actionLihatProposal()
+    {
+        $searchModel = new TrProposalSearch();
+        $dataProvider = $searchModel->search2(Yii::$app->request->queryParams);
+        //$dataProvider = new SqlDataProvider(['sql'=>'SELECT * from tr_proposal WHERE id_anggota='.$session->get('id_anggota')]);
+
+        return $this->render('lihatProposal', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }
