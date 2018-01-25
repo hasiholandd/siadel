@@ -68,6 +68,9 @@ class TrProposalController extends Controller
         $model = new TrProposal();
 
         if ($model->load(Yii::$app->request->post())) {
+            $session = Yii::$app->session;
+            $model->id_anggota = $session->get('id_user');
+
             $model->url_dokumen_pengeluaran = UploadedFile::getInstance($model, 'url_dokumen_pengeluaran');
             $path = Yii::getAlias('@webroot').'/proposal/' ;
             $time = date('Y-m-d')."-".time();
