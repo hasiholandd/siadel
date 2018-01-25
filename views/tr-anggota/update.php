@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TrAnggota */
 
-$this->title = 'Update Tr Anggota: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tr Anggotas', 'url' => ['index']];
+$this->title = 'Update Data Anggota: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Anggota', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
@@ -17,6 +17,10 @@ $this->params['breadcrumbs'][] = 'Update';
     <?= $this->render('_form', [
         'model' => $model,
         'optionPengumuman' => $optionPengumuman,
+        'optionPekerjaan' => $optionPekerjaan,
+        'optionPendidikan' => $optionPendidikan,
+        'optionJurusan' => $optionJurusan,
+        'optionAngkatan' => $optionAngkatan,
     ]) ?>
 
 </div>
