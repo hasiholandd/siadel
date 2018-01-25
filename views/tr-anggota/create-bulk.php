@@ -21,11 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
 
         <?= $form->field($model,'file')->fileInput() ?>
-
+        <br>
         Hint: file yang di-upload adalah file dengan extensi .csv. Mohon ikuti format template yang ada pada link dibawah ini<br>
-
+        <br>
+        <br>
         <?php echo Html::a('Download Template',['/tr-anggota/download-template']); ?>
-
+        <br>
+        <br>
         <div class="form-group">
             <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
             <?= Html::submitButton($model->isNewRecord ? 'Simpan Data' : 'Simpan Data', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -59,7 +59,7 @@ class TrAnggotaController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+       return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -72,12 +72,48 @@ class TrAnggotaController extends Controller
     public function actionCreate()
     {
         $model = new TrAnggota();
+        $optionPekerjaan = ArrayHelper::map(MsPekerjaan::find()->all(), 'id', 'nama_pekerjaan');
+        $optionPendidikan = ArrayHelper::map(MsPendidikan::find()->all(), 'id', 'nama_pendidikan');
+        $optionJurusan = ArrayHelper::map(MsJurusan::find()->all(), 'id', 'nama_jurusan');
+        $optionAngkatan = ArrayHelper::map(MsAngkatan::find()->all(), 'id', 'tahun_angkatan');
+         if ($model->load(Yii::$app->request->post()) ) {
+          
+            // $model->url_foto = UploadedFile::getInstance($model, 'url_foto');
+            // $filename =  $model->id . "_" . date('YmdHis');
+            // $path = Yii::getAlias('@uploadedprofilpicturedir') ;
+            
+            // if(!empty($model->url_foto->extension)){
+            //   $model->url_foto->saveAs($path . $filename . '.' . $model->url_foto->extension);
+            //   $model->url_foto = $filename . '.' . $model->url_foto->extension;  
+            // }else{
+            //   $model = $this->findModel($session->get('id_user'));
+            //   $model->url_foto = $model->url_foto;
+            // }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->save();
+
+            $modelUser = new \app\models\TrUser;
+            //create data user
+            $dataAnggota = \app\models\TrAnggota::find()->where([ 'nim' => $model->nim ])->one();
+            $modelUser->id_anggota = $dataAnggota->id;
+            $modelUser->email = $dataAnggota->email;
+            $modelUser->password = md5('password123');//password default : password123
+            $modelUser->link_reset_password = md5($dataAnggota->nim.$dataAnggota->nama.date('YmdHis'));
+            $modelUser->id_role =  2; //role default : user 
+            $modelUser->flag =  0; // 0 : belum dikirim email reset password <> 1 : sudah dikirim
+            $modelUser->created_at =  date('Y-m-d H:i:s'); 
+           
+            $modelUser->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'optionPekerjaan' => $optionPekerjaan,
+                'optionPendidikan' => $optionPendidikan,
+                'optionJurusan' => $optionJurusan,
+                'optionAngkatan' => $optionAngkatan,
             ]);
         }
     }
@@ -91,12 +127,20 @@ class TrAnggotaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $optionPekerjaan = ArrayHelper::map(MsPekerjaan::find()->all(), 'id', 'nama_pekerjaan');
+        $optionPendidikan = ArrayHelper::map(MsPendidikan::find()->all(), 'id', 'nama_pendidikan');
+        $optionJurusan = ArrayHelper::map(MsJurusan::find()->all(), 'id', 'nama_jurusan');
+        $optionAngkatan = ArrayHelper::map(MsAngkatan::find()->all(), 'id', 'tahun_angkatan');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'optionPekerjaan' => $optionPekerjaan,
+                'optionPendidikan' => $optionPendidikan,
+                'optionJurusan' => $optionJurusan,
+                'optionAngkatan' => $optionAngkatan,
             ]);
         }
     }
@@ -150,6 +194,7 @@ class TrAnggotaController extends Controller
                 $count = 0;
                 while (($fileop = fgetcsv($handle, 10000, ",")) !== false)
                 {
+                    
                     if($count > 0) {
                         $jurusan = MsJurusan::find()->where(['nama_jurusan'=> $fileop[5]])->one();
                         $pendidikan = MsPendidikan::find()->where(['nama_pendidikan'=>$fileop[6]])->one();
@@ -160,6 +205,31 @@ class TrAnggotaController extends Controller
                     '$fileop[3]','$fileop[4]','$jurusan->id','$pendidikan->id','$pekerjaan->id','$angkatan->id','$fileop[9]','$fileop[10]','$fileop[11]','$fileop[12]'
                     ,'$fileop[13]','$fileop[14]','$fileop[15]')";
                         Yii::$app->db->createCommand($sql)->execute();
+
+                        $modelUser = new \app\models\TrUser;
+                        //create data user
+                        $dataAnggota = \app\models\TrAnggota::find()->where([ 'nim' => $fileop[0] ])->one();
+                        $modelUser->id_anggota = $dataAnggota->id;
+                        $modelUser->email = $fileop[10];
+                        $modelUser->password = md5('password123');//password default : password123
+                        $modelUser->link_reset_password = md5($fileop[0].$fileop[1].date('YmdHis'));
+                        $modelUser->id_role =  2; //role default : user 
+                        $modelUser->flag =  0; // 0 : belum dikirim email reset password <> 1 : sudah dikirim
+                        $modelUser->created_at =  date('Y-m-d H:i:s'); 
+                       
+                        $modelUser->save();
+
+                        //sending email
+                        $arrayTemp = array();
+                        $arrayTemp['nama'] = $dataAnggota->nama;
+                        $arrayTemp['email'] = $modelUser->email;
+                        $arrayTemp['link_reset_password'] = "https://www.iadel.org". \yii\helpers\Url::to(['tr-user/resetpassword', 'token' => $modelUser->link_reset_password]);
+                        $arrayTemp['subject'] = "MOHON RESET PASSWORD - SIADEL";
+                        $html_template = 'email'; //nama template
+                        if( Helper::sendemail($arrayTemp, $arrayTemp['subject'], $html_template, $arrayTemp['email']  ) == true){
+                           $modelUser->flag =  1; // 0 : belum dikirim email reset password <> 1 : sudah dikirim
+                           $modelUser->save(); 
+                        }
                     }
                     $count++;
                 }
@@ -186,16 +256,15 @@ class TrAnggotaController extends Controller
 
     public function actionUpdatedatadiri()
     {
+
         $session = Yii::$app->session;
-        $model = $this->findModel($session->get('id_user'));
-                    
+        $model = $this->findModel($session->get('id_anggota'));
+        
         $optionPekerjaan = ArrayHelper::map(MsPekerjaan::find()->all(), 'id', 'nama_pekerjaan');
         $optionPendidikan = ArrayHelper::map(MsPendidikan::find()->all(), 'id', 'nama_pendidikan');
         $optionJurusan = ArrayHelper::map(MsJurusan::find()->all(), 'id', 'nama_jurusan');
         $optionAngkatan = ArrayHelper::map(MsAngkatan::find()->all(), 'id', 'tahun_angkatan');
-        
         if ($model->load(Yii::$app->request->post()) ) {
-          
             $model->url_foto = UploadedFile::getInstance($model, 'url_foto');
             $filename =  $model->id . "_" . date('YmdHis');
             $path = Yii::getAlias('@uploadedprofilpicturedir') ;

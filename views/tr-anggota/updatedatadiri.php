@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = 'Update';
 	    	'Buddha' => 'Buddha',
 	    	'Kong Hu Cu' => 'Kong Hu Cu',
 	    	],
-        ['prompt'=>'Pilih Status']);?>
+        ['prompt'=>'Pilih Agama']);?>
 
    	    <?= $form->field($model, 'jurusan')->dropdownList($optionJurusan,
         ['prompt'=>'Pilih Jurusan']);?>

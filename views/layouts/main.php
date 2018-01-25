@@ -160,7 +160,7 @@ AppAsset::register($this);
                 [
                 'label' => 'Proposal',
                 'items' => [
-                         ['label' => 'Lihat Status Proposal', 'url' => ['/lihat-proposal']],
+                         ['label' => 'Lihat Status Proposal', 'url' => ['/tr-proposal/lihatproposal']],
                          '<li class="divider"></li>',
                          ['label' => 'Upload Proposal', 'url' => ['/tr-proposal/create']],
                     ],
@@ -169,11 +169,11 @@ AppAsset::register($this);
                 [
                 'label' => 'Profil',
                 'items' => [
-                         ['label' => 'Ubah Data Diri', 'url' => ['/profil']],
+                         ['label' => 'Ubah Data Diri', 'url' => ['tr-anggota/updatedatadiri']],
                          '<li class="divider"></li>',
-                         ['label' => 'Ubah Password', 'url' => ['/ubah-password']],
+                         ['label' => 'Ubah Password', 'url' => ['tr-user/gantipassword']],
                          '<li class="divider"></li>',
-                         ['label' => 'Lihat Data Alumni', 'url' => ['/lihat-data-alumni']],
+                         ['label' => 'Lihat Data Alumni', 'url' => ['/tr-anggota/lihatdata']],
                     ],
                 ],
 

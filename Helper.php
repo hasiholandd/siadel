@@ -33,7 +33,15 @@ class Helper{
         header("Content-Disposition: attachment;filename={$filename}");
         header("Content-Transfer-Encoding: binary");
     }
-}
+
+    public static function sendemail($arrayTemp,$subject,$html_template,$receiver_email) {
+        $bool =  \Yii::$app->mailer->compose(['html' => $html_template],['arrayTemp' => $arrayTemp])
+                        ->setFrom(['support@iadel.org' => 'SIADEL' ])
+                        ->setTo($receiver_email)
+                        ->setSubject($subject)
+                        ->send();
+        }
+    }
 
 ?>
 

@@ -16,6 +16,7 @@ use app\models\MsJurusan;
 use app\models\MsAngkatan;
 use app\models\MsPendidikan;
 use yii\web\AssetManager;
+use app\Helper;
 
 /**
  * TrUserController implements the CRUD actions for TrUser model.
@@ -150,9 +151,11 @@ class TrUserController extends Controller
         if (Yii::$app->request->post()){
         	$model->save();
         	
-        	return $this->redirect(['updatedatadiri', 'id' => $model->id, 'username' => $model->username, 'email' => $model->email]);
+        	return $this->render('updatedatadiri', [
+                'model' => $model,
+            ]);
         } else {
-            return $this->render('gantipassword', [
+            return $this->render('updatedatadiri', [
                 'model' => $model,
             ]);
         }
@@ -164,7 +167,6 @@ class TrUserController extends Controller
         $model = $this->findModel($session->get('id_user'));
 
         if (Yii::$app->request->post()){
-        	
         	$model->password = md5(Yii::$app->request->post('TrUser')['password']);
         	$model->updated_at = date('Y-m-d H:i:s');
         	$model->save();
@@ -261,4 +263,61 @@ class TrUserController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionResetpassword()
+    {
+        //contoh url = http://skripsi.local/index.php?r=tr-user%2Fresetpassword&token=63c5db445ca70f111a131889b1a0ef75
+        //$url = \yii\helpers\Url::to(['tr-user/resetpassword', 'token' => '63c5db445ca70f111a131889b1a0ef75']);
+         if(Yii::$app->request->post()){
+            $model = TrUser::find()->where( ['id' => Yii::$app->request->post('TrUser')['id']] )->one();
+            $model->username = Yii::$app->request->post('TrUser')['username'];
+            $model->password = md5(Yii::$app->request->post('TrUser')['password']);
+            $model->updated_at = date('Y-m-d H:i:s');
+            //set agar tidak dapat mengunjungi link kembali 
+            $model->link_reset_password = 'tidakbisadikunjungikembali';
+            $model->save();
+            //return $this->redirect(['selamat']);
+            return $this->render('selamat', [
+                    'model' => $model,
+                ]); 
+         }else{
+             $token = Yii::$app->getRequest()->getQueryParam('token');
+             if(empty($token)){
+                echo json_encode('Mohon maaf token yang anda masukkan sudah expired / tidak valid.');
+             }else{
+                $model = TrUser::find()->where(['link_reset_password' => $token])->one();
+                 return $this->render('resetpassword', [
+                    'model' => $model,
+                    'flag' => 'resetpasswordaction',
+                ]);      
+             }
+         }
+    }
+
+    public function actionSendinglinkresetpasword(){
+        $arrayTemp = array();
+        $arrayTemp['nama'] = 'Hasiholan';//$dataAnggota->nama;
+        $arrayTemp['email'] = 'hasiholanpurba93@gmail.com';
+        $arrayTemp['link_reset_password'] = "https://www.iadel.org". \yii\helpers\Url::to(['tr-user/resetpassword', 'token' => 'jadshdsuf9a9ejnfaufybdsiysd98yasuobfas']);
+        $arrayTemp['subject'] = "LINK RESET PASSWORD - SIADEL";
+        $html_template = 'email'; //nama template
+        
+
+        Helper::sendemail($arrayTemp, $arrayTemp['subject'], $html_template, $arrayTemp['email'] );
+
+
+        // $email = 'hasiholanpurba93@gmail.com';
+        // //$bool =  \Yii::$app->mailer->hasMethod;
+        // $user = 'bandit';
+        // $bool =  \Yii::$app->mailer->compose(['html' => 'email'],['user' => $user])
+        //                 ->setFrom(['support@iadel.org' => 'SIADEL' ])
+        //                 ->setTo($email)
+        //                 ->setSubject('Password reset for ' . \Yii::$app->name)
+        //                 ->send();
+        // echo '<pre>';
+        // var_export($bool);
+        // exit();
+        //Helper::sendemail();    
+    }
+    
 }

@@ -31,6 +31,7 @@ class TrUser extends \yii\db\ActiveRecord
     public $nama;
     public $nama_role;
     public $re_password;
+    public $flag_action;
 
     public static function tableName()
     {
@@ -43,11 +44,11 @@ class TrUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_anggota', 'id_role','flag'], 'integer'],
-            [['username', 'email','password'], 'required'],
-            [['password', 'link_reset_password'], 'string'],
-            [['last_login', 'created_at', 'updated_at'], 'safe'],
-            [['username', 'email'], 'string', 'max' => 255],
+           // [['id_anggota', 'id_role','flag'], 'integer'],
+           // [['username', 'email','password'], 'required'],
+           // [['password', 'link_reset_password'], 'string'],
+         //   [['last_login', 'created_at', 'updated_at'], 'safe'],
+         //   [['username', 'email'], 'string', 'max' => 255],
            // [['id_role'], 'exist', 'skipOnError' => true, 'targetClass' => MsRole::className(), 'targetAttribute' => ['id_role' => 'id']],
             //[['id_anggota'], 'exist', 'skipOnError' => true, 'targetClass' => TrAnggota::className(), 'targetAttribute' => ['id_anggota' => 'id']],
         ];
@@ -72,7 +73,8 @@ class TrUser extends \yii\db\ActiveRecord
             'flag' => 'Flag',
             'nama' => 'Nama Anggota',
             'nama_role' => 'Nama Role',
-            're_password' => 'Konfirmasi Ulang Password'
+            're_password' => 'Konfirmasi Ulang Password',
+            'flag_action' => 'Flag action',
         ];
     }
 
