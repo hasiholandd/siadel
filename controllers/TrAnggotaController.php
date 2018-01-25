@@ -369,4 +369,15 @@ class TrAnggotaController extends Controller
             ]);
         }
     }
+
+    public function actionLihatdata()
+    {
+        $searchModel = new TrAnggotaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('lihatdata', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }
