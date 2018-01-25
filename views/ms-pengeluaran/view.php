@@ -6,13 +6,13 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\MsPengeluaran */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Daftar Master', 'url' => ['index']];
+$this->title = "Detail " .$model->nama_pengeluaran;
+$this->params['breadcrumbs'][] = ['label' => 'Master Data Pengeluaran', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ms-pengeluaran-view">
 
-    <h1>Detail Master Pengeluaran <?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
    
 
@@ -21,8 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'nama_pengeluaran',
-            //'created_at',
-            //'updated_at',
+            'created_at',
+            'updated_at',
         ],
     ]) ?>
 

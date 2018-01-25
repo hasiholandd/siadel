@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\MsBank */
 
-$this->title = 'Update Master Data Bank: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Master Data Banks', 'url' => ['index']];
+$this->title = 'Update: ' . $model->nama_bank;
+$this->params['breadcrumbs'][] = ['label' => 'Master Data Bank', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

@@ -83,7 +83,7 @@ class MsPengumumanController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->updated_at = date('Y-m-d H:i:s');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'id' => $model->id]);
         } else {
