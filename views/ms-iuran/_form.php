@@ -52,7 +52,7 @@ use yii2\jui\DatePicker;
  
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'SAVE' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'SAVE' : 'SAVE', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

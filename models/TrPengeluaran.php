@@ -21,6 +21,9 @@ class TrPengeluaran extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $tanggal_awal;
+    public $tanggal_akhir;
+    
     public static function tableName()
     {
         return 'tr_pengeluaran';
@@ -34,7 +37,7 @@ class TrPengeluaran extends \yii\db\ActiveRecord
         return [
             [['id_pengeluaran', 'jumlah_pengeluaran'], 'integer'],
             [['tanggal_pengeluaran', 'created_at', 'updated_at'], 'safe'],
-            [['keterangan_pengeluaran', 'url_bukti_pengeluaran'], 'string'],
+            [['keterangan_pengeluaran', 'url_bukti_pengeluaran','tanggal_awal','tanggal_akhir   '], 'string'],
         ];
     }
 
@@ -52,6 +55,8 @@ class TrPengeluaran extends \yii\db\ActiveRecord
             'url_bukti_pengeluaran' => 'Url Bukti Pengeluaran',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'tanggal_awal' => 'Tanggal Awal',
+            'tanggal_akhir' => 'Tanggal Akhir',
         ];
     }
 }
