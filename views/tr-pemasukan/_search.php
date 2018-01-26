@@ -21,9 +21,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_user') ?>
 
-    <?= $form->field($model, 'sumber_pemasukan') ?>
+    <?= $form->field($model, 'jumlah_pemasukan') ?>
 
     <?= $form->field($model, 'tanggal_pemasukan') ?>
+
+    <?= $form->field($model, 'keterangan_pemasukan') ?>
 
     <?php // echo $form->field($model, 'url_bukti_pemasukan') ?>
 

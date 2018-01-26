@@ -59,4 +59,14 @@ class TrPemasukan extends \yii\db\ActiveRecord
             'tangal_akhir' => 'Tanggal Akhir'
         ];
     }
+
+    public function getNamaPemasukan()
+    {
+        return $this->hasOne(MsPemasukan::className(), ['id' => 'id_pemasukan']);
+    }
+
+    public function getNamaAnggota()
+    {
+        return $this->hasOne(TrAnggota::className(), ['id' => 'id_user']);
+    }
 }
