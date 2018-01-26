@@ -29,7 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'namaIuran.nama_iuran',
             ],
            
-            'jumlah_bayar',
+            [
+                'label' => 'Jumlah Bayar',
+                'attribute' => 'jumlah_bayar',
+                'format'=>['decimal',2]
+            ],
             //'status_pembayaran',
             array(
                 'attribute' => 'status_pembayaran',

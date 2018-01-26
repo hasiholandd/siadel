@@ -20,7 +20,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model,'url_dokumen_pengeluaran')->textInput(['readonly'=>true]) ?>
 
+    <?php $session = Yii::$app->session;
+    if($session->get('rolename') == 'admin') { ?>
     <?php echo $form->field($model, 'status_proposal')->dropDownList(['1' => 'Setuju', '0' => 'Tidak Setuju']); ?>
+
+    <?php }?>
 
     <?php echo Html::a('Download Proposal',['/tr-proposal/download-uploaded-file', 'file'=>$model->url_dokumen_pengeluaran]
         ,['class' => 'glyphicon glyphicon-download']
