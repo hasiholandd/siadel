@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model,'url_dokumen_pengeluaran')->fileInput() ?>
 
     <div class="form-group">
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+         
         <?= Html::submitButton($model->isNewRecord ? 'Save' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

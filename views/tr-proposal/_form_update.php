@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
     ); ?>
 <br>&nbsp;
     <div class="form-group">
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+         
         <?= Html::submitButton($model->isNewRecord ? 'Save' : 'Save', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
