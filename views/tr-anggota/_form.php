@@ -67,7 +67,16 @@ use yii\widgets\ActiveForm;
             '1' => 'Menikah'
             ],
         ['prompt'=>'Pilih Status']);?>
-
+ 
+    <?php 
+        $session = Yii::$app->session;
+        if($session->get('rolename') == 'admin'){?>
+        <?= $form->field($model, 'status_hidup')->dropdownList([
+                '1' => 'Hidup',
+                '0' => 'Meninggal'
+                ],
+            ['prompt'=>'Pilih Status']);?>
+    <?php } ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
