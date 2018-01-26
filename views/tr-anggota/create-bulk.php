@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <br>
         <br>
         <div class="form-group">
-            <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+             
             <?= Html::submitButton($model->isNewRecord ? 'Simpan Data' : 'Simpan Data', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 
