@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model,'url_dokumen_pengeluaran')->fileInput() ?>
 
+    <?php  echo '<label>Hint: file .docx, .xlsx .pdf </label>';?>
+
     <div class="form-group">
          
         <?= Html::submitButton($model->isNewRecord ? 'Save' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
