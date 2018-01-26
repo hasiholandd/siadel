@@ -14,27 +14,30 @@ use yii\widgets\ActiveForm;
 
 
     <?= $form->field($model, 'id_pemasukan')->dropdownList($optionPemasukan,
-        ['prompt'=>'Pilih Pemasukan']);?>
+        ['prompt'=>'Pilih Pemasukan'])
+        ->label('Jenis Pemasukan');?>
   
     <?= $form->field($model, 'jumlah_pemasukan')->textInput() ?>
 
-   
      <?php
         echo '<label>Tanggal Pemasukan</label>';
         echo \kartik\widgets\DatePicker::widget([
             'model' => $model,
             'attribute' => 'tanggal_pemasukan',
             'pluginOptions' => [
-              'format' => 'yyyy-mm-d',
+              'format' => 'yyyy-mm-dd',
               'todayHighlight' => true
           ]
         ]);
         ?>
+    <br>
 
-    <?= $form->field($model,'url_bukti_pemasukan')->fileInput() ?>
+    <?= $form->field($model, 'keterangan_pemasukan')->textArea(['rows' => 6]) ?>
+
+
+    <?= $form->field($model,'url_bukti_pemasukan')->fileInput()->label('Upload Bukti Pemasukan') ?>
     <?php  echo '<label>Hint: file .jpg, .png</label>';?>
 
-    <?= $form->field($model, 'keterangan_pemasukan')->textInput() ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'SAVE' : 'SAVE', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

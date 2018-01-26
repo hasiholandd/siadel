@@ -12,19 +12,29 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_pengeluaran')->textInput() ?>
+    <?= $form->field($model, 'id_pengeluaran')->dropdownList($optionPengeluaran,
+        ['prompt'=>'Pilih Pengeluaran'])
+        ->label('Jenis Pengeluaran');?>
 
     <?= $form->field($model, 'jumlah_pengeluaran')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tanggal_pengeluaran')->textInput() ?>
+    <?php
+        echo '<label>Tanggal Pemasukan</label>';
+        echo \kartik\widgets\DatePicker::widget([
+            'model' => $model,
+            'attribute' => 'tanggal_pengeluaran',
+            'pluginOptions' => [
+              'format' => 'yyyy-mm-dd',
+              'todayHighlight' => true
+          ]
+        ]);
+        ?>
+    <br>
 
     <?= $form->field($model, 'keterangan_pengeluaran')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'url_bukti_pengeluaran')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <?= $form->field($model,'url_bukti_pengeluaran')->fileInput()->label('Upload Bukti Pemasukan') ?>
+    <?php  echo '<label>Hint: file .jpg, .png</label>';?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

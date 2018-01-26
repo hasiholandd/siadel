@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TrPengeluaranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tr Pengeluarans';
+$this->title = 'Data Pengeluaran';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-pengeluaran-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tr Pengeluaran', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Data Pengeluaran', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,10 +24,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'id_pengeluaran',
-            'jumlah_pengeluaran',
-            'tanggal_pengeluaran',
+            //'id',
+            //'id_pengeluaran',
+             [ 
+                  'attribute'=>'id_proposal',
+                  'header' => 'Nama proposal',  
+                  'value'=>    function ($model) {
+                        return  \app\models\MsPengeluaran::findOne($model->id_pengeluaran)->nama_pengeluaran;
+                    }
+            ],
+            [
+                'attribute' => 'tanggal_pengeluaran',
+                'format' => ['date', 'php:d/m/Y']
+            ],
+            [
+                'label' => 'Jumlah Pengeluaran',
+                'attribute' => 'jumlah_pengeluaran',
+                'format'=>['decimal',2]
+            ],
             'keterangan_pengeluaran:ntext',
             // 'url_bukti_pengeluaran:ntext',
             // 'created_at',

@@ -37,7 +37,7 @@ class TrPengeluaran extends \yii\db\ActiveRecord
         return [
             [['id_pengeluaran', 'jumlah_pengeluaran'], 'integer'],
             [['tanggal_pengeluaran', 'created_at', 'updated_at'], 'safe'],
-            [['keterangan_pengeluaran', 'url_bukti_pengeluaran','tanggal_awal','tanggal_akhir   '], 'string'],
+            [['keterangan_pengeluaran', 'url_bukti_pengeluaran','tanggal_awal','tanggal_akhir'], 'string'],
         ];
     }
 

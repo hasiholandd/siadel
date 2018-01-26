@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use app\Helper;
+use app\models\MsPengeluaran;
+use yii\web\UploadedFile;
 
 /**
  * TrPengeluaranController implements the CRUD actions for TrPengeluaran model.
@@ -66,12 +68,27 @@ class TrPengeluaranController extends Controller
     public function actionCreate()
     {
         $model = new TrPengeluaran();
+        $optionPengeluaran = ArrayHelper::map(MsPengeluaran::find()->all(), 'id','nama_pengeluaran');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        if ($model->load(Yii::$app->request->post())) {
+             $model->url_bukti_pengeluaran = UploadedFile::getInstance($model, 'url_bukti_pengeluaran');
+
+            if ( $model->url_bukti_pengeluaran )
+            {
+                $path = Yii::getAlias('@webroot'.'/uploads/pengeluaran/');
+                $time = date('Y-m-d')."-".time();
+                $model->url_bukti_pengeluaran->saveAs($path .$time. '.' . $model->url_bukti_pengeluaran->extension);
+                $model->url_bukti_pengeluaran = $time. '.' . $model->url_bukti_pengeluaran->extension;
+            }
+
+            $model->save();
+
+            return $this->redirect(['index', 'id' => $model->id]);
+        }
+        else {
             return $this->render('create', [
                 'model' => $model,
+                'optionPengeluaran' => $optionPengeluaran,
             ]);
         }
     }
@@ -85,12 +102,27 @@ class TrPengeluaranController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $optionPengeluaran = ArrayHelper::map(MsPengeluaran::find()->all(), 'id','nama_pengeluaran');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+                $model->url_bukti_pengeluaran = UploadedFile::getInstance($model, 'url_bukti_pengeluaran');
+
+
+                if ( $model->url_bukti_pengeluaran )
+                {
+                    $path = Yii::getAlias('@webroot'.'/uploads/pengeluaran/');
+                    $time = date('Y-m-d')."-".time();
+                    $model->url_bukti_pengeluaran->saveAs($path .$time. '.' . $model->url_bukti_pengeluaran->extension);
+                    $model->url_bukti_pengeluaran = $time. '.' . $model->url_bukti_pengeluaran->extension;
+                }
+                $model->updated_at = date('Y-m-d H:i:s');
+                $model->save();
+
+                return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'optionPengeluaran' => $optionPengeluaran,
             ]);
         }
     }
