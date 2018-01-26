@@ -89,7 +89,7 @@ AppAsset::register($this);
                 'items' => [
                          ['label' => 'Tambah Iuran', 'url' => ['/ms-iuran/create']],
                          '<li class="divider"></li>',
-                         ['label' => 'Blast Informasi Iuran', 'url' => ['/tr-iuran']],
+                         ['label' => 'Blast Informasi Iuran', 'url' => ['/ms-iuran']],
                          '<li class="divider"></li>',
                          ['label' => 'Monitoring Pembayaran', 'url' => ['/tr-iuran']],
                     ],

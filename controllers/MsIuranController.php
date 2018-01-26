@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\MsBank;
+use app\Helper;
 /**
  * MsIuranController implements the CRUD actions for MsIuran model.
  */
@@ -37,10 +38,11 @@ class MsIuranController extends Controller
     {
         $searchModel = new MsIuranSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $counter = '';
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'counter' => $counter,
         ]);
     }
 
@@ -119,5 +121,41 @@ class MsIuranController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionBlast($id)
+    {
+        //get all data anggota
+        $anggotas = \app\models\TrAnggota::find()->all();
+        $iuran = \app\models\MsIuran::find()->where(['id' => $id])->one();
+    
+        //sending email
+        $arrayTemp = array();
+        $arrayTemp['subject'] = "TAGIHAN IURAN - SIADEL";
+        $arrayTemp['nama_iuran']  = $iuran->nama_iuran;
+        $arrayTemp['jumlah']  = $iuran->jumlah;
+        $arrayTemp['tanggal_mulai']  = $iuran->tanggal_mulai;
+        $arrayTemp['tanggal_selesai']  = $iuran->tanggal_selesai;
+         
+        $html_template = 'blast_iuran'; //nama template
+
+        $counter = 0;
+        foreach ($anggotas as $anggota) {
+            
+            $arrayTemp['nama'] = $anggota->nama;
+            $arrayTemp['email'] = $anggota->email;
+
+            Helper::sendemail($arrayTemp, $arrayTemp['subject'], $html_template, $arrayTemp['email']);
+            $counter++;
+        }
+
+        $searchModel = new MsIuranSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'counter' => $counter,
+        ]);
     }
 }
