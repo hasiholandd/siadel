@@ -14,7 +14,7 @@ use app\models\MsPemasukan;
 use app\models\trIuran;
 use yii\helpers\ArrayHelper;
 use app\Helper;
-
+use yii\web\UploadedFile;
 /**
  * TrPemasukanController implements the CRUD actions for TrPemasukan model.
  */
@@ -70,13 +70,41 @@ class TrPemasukanController extends Controller
     public function actionCreate()
     {
         $model = new TrPemasukan();
+        $optionPemasukan = ArrayHelper::map(MsPemasukan::find()->all(), 'id','nama_pemasukan');
+        if ($model->load(Yii::$app->request->post())) {
+             $model->url_bukti_pemasukan = UploadedFile::getInstance($model, 'url_bukti_pemasukan');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+            $session = Yii::$app->session;
+            $id = $session->get('id_anggota');
+            $model->id_user=  $id;
+
+            if ( $model->url_bukti_pemasukan )
+            {
+                $path = Yii::getAlias('@webroot'.'/uploads/pemasukan/');
+                $time = date('Y-m-d')."-".time();
+                $model->url_bukti_pemasukan->saveAs($path .$time. '.' . $model->url_bukti_pemasukan ->extension);
+                $model->url_bukti_pemasukan = $time. '.' . $model->url_bukti_pemasukan->extension;
+            }
+
+            $model->save();
+
+
+            return $this->redirect(['index', 'id' => $model->id]);
+        }
+        else {
             return $this->render('create', [
                 'model' => $model,
+                'optionPemasukan' => $optionPemasukan,
             ]);
+
+        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //return $this->redirect(['index', 'id' => $model->id]);
+        //} else {
+            //return $this->render('create', [
+                //'model' => $model,
+                //'optionPemasukan' => $optionPemasukan,
+
+            //]);
         }
     }
 
@@ -89,12 +117,14 @@ class TrPemasukanController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $optionPemasukan = ArrayHelper::map(MsPemasukan::find()->all(), 'id','nama_pemasukan');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'optionPemasukan' => $optionPemasukan,
             ]);
         }
     }

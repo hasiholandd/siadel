@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TrPemasukan */
 
-$this->title = 'Create Tr Pemasukan';
-$this->params['breadcrumbs'][] = ['label' => 'Tr Pemasukans', 'url' => ['index']];
+$this->title = 'Tambah Data Pemasukan';
+$this->params['breadcrumbs'][] = ['label' => 'Data Pemasukan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-pemasukan-create">
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'optionPemasukan' => $optionPemasukan,
     ]) ?>
 
 </div>

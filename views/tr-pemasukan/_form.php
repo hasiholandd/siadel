@@ -12,22 +12,31 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_pemasukan')->textInput() ?>
 
-    <?= $form->field($model, 'id_user')->textInput() ?>
-
+    <?= $form->field($model, 'id_pemasukan')->dropdownList($optionPemasukan,
+        ['prompt'=>'Pilih Pemasukan']);?>
+  
     <?= $form->field($model, 'jumlah_pemasukan')->textInput() ?>
 
-    <?= $form->field($model, 'tanggal_pemasukan')->textInput() ?>
+   
+     <?php
+        echo '<label>Tanggal Pemasukan</label>';
+        echo \kartik\widgets\DatePicker::widget([
+            'model' => $model,
+            'attribute' => 'tanggal_pemasukan',
+            'pluginOptions' => [
+              'format' => 'yyyy-mm-d',
+              'todayHighlight' => true
+          ]
+        ]);
+        ?>
 
-    <?= $form->field($model, 'url_bukti_pemasukan')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model,'url_bukti_pemasukan')->fileInput() ?>
+    <?php  echo '<label>Hint: file .jpg, .png</label>';?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
+    <?= $form->field($model, 'keterangan_pemasukan')->textInput() ?>
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'SAVE' : 'SAVE', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

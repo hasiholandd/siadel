@@ -6,33 +6,32 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\TrPemasukan */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tr Pemasukans', 'url' => ['index']];
+$this->title = "Detail Pemasukan ";
+$this->params['breadcrumbs'][] = ['label' => 'Data Pemasukan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-pemasukan-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
+    
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'id_pemasukan',
-            'id_user',
-            'sumber_pemasukan',
+           
+            [
+                'label' => 'Pemasukan',
+                'value' => $model->namaPemasukan->nama_pemasukan,
+            ],
+           
+            [
+                'label' => 'User',
+                'value' => $model->namaAnggota->nama,
+            ],
+            'jumlah_pemasukan',
             'tanggal_pemasukan',
+            'keterangan_pemasukan',
             'url_bukti_pemasukan:ntext',
             'created_at',
             'updated_at',

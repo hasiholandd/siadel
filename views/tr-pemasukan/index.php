@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TrPemasukanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tr Pemasukans';
+$this->title = 'Data Pemasukan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-pemasukan-index">
@@ -16,19 +16,28 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tr Pemasukan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Data Pemasukan', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+       
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'id_pemasukan',
-            'id_user',
+            //'id',
+            
+            [
+                'label' => 'Pemasukan',
+                'value' => 'namaPemasukan.nama_pemasukan',
+            ],
+            
+             [
+                'label' => 'User',
+                'value' => 'namaAnggota.nama',
+            ],
             'jumlah_pemasukan',
             'tanggal_pemasukan',
+            'keterangan_pemasukan',
             // 'url_bukti_pemasukan:ntext',
             // 'created_at',
             // 'updated_at',
