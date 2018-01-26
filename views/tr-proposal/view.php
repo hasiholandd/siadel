@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\TrProposal */
 
 $this->title = $model->tujuan_proposal;
-$this->params['breadcrumbs'][] = ['label' => 'Tr Proposals', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Proposal ', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-proposal-view">

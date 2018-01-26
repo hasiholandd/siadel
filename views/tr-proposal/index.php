@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TrProposalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tr Proposals';
+$this->title = 'Data Proposal';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-proposal-index">
@@ -15,9 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Tr Proposal', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

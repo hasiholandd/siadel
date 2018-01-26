@@ -18,22 +18,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tanggal_pengajuan')->textInput(['readonly'=>true]) ?>
 
-    <?= $form->field($model,'url_dokumen_pengeluaran')->textInput(['readonly'=>true]) ?>
-
+    <?php echo Html::a('Download Proposal',['/tr-proposal/download-uploaded-file', 'file'=>$model->url_dokumen_pengeluaran]
+        ,['class' => 'glyphicon glyphicon-download']
+    ); ?>
+    
+    <br>
+    <br>&nbsp;
     <?php $session = Yii::$app->session;
     if($session->get('rolename') == 'admin') { ?>
     <?php echo $form->field($model, 'status_proposal')->dropDownList(['1' => 'Setuju', '0' => 'Tidak Setuju']); ?>
 
-    <?php }?>
+        
+        <div class="form-group">
+             
+            <?= Html::submitButton($model->isNewRecord ? 'Save' : 'Save', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
 
-    <?php echo Html::a('Download Proposal',['/tr-proposal/download-uploaded-file', 'file'=>$model->url_dokumen_pengeluaran]
-        ,['class' => 'glyphicon glyphicon-download']
-    ); ?>
-<br>&nbsp;
-    <div class="form-group">
-         
-        <?= Html::submitButton($model->isNewRecord ? 'Save' : 'Save', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+    <?php }?>
 
     <?php ActiveForm::end(); ?>
 
