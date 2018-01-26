@@ -35,6 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => ['date', 'php:d/m/Y']
             ],
             'jumlah',
+            [
+                'label' =>      'Jumlah',
+                'attribute' =>  'jumlah',
+                'format'=>      ['decimal',2]
+            ],
 
             // 'created_at',
             // 'updated_at',

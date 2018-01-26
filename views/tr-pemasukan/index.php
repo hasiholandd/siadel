@@ -35,8 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'User',
                 'value' => 'namaAnggota.nama',
             ],
-            'jumlah_pemasukan',
-            'tanggal_pemasukan',
+            [
+                'label' => 'Jumlah Pemasukan',
+                'attribute' => 'jumlah_pemasukan',
+                'format'=>['decimal',2]
+            ],
+            [
+                'attribute' => 'tanggal_pemasukan',
+                'format' => ['date', 'php:d/m/Y']
+            ],
             'keterangan_pemasukan',
             // 'url_bukti_pemasukan:ntext',
             // 'created_at',

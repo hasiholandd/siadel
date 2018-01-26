@@ -71,11 +71,12 @@ class TrPemasukanController extends Controller
     {
         $model = new TrPemasukan();
         $optionPemasukan = ArrayHelper::map(MsPemasukan::find()->all(), 'id','nama_pemasukan');
+
         if ($model->load(Yii::$app->request->post())) {
              $model->url_bukti_pemasukan = UploadedFile::getInstance($model, 'url_bukti_pemasukan');
 
             $session = Yii::$app->session;
-            $id = $session->get('id_anggota');
+            $id = $session->get('ìd_user');
             $model->id_user=  $id;
 
             if ( $model->url_bukti_pemasukan )
@@ -119,7 +120,24 @@ class TrPemasukanController extends Controller
         $model = $this->findModel($id);
         $optionPemasukan = ArrayHelper::map(MsPemasukan::find()->all(), 'id','nama_pemasukan');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+             $model->url_bukti_pemasukan = UploadedFile::getInstance($model, 'url_bukti_pemasukan');
+
+            $session = Yii::$app->session;
+            $id = $session->get('ìd_user');
+            $model->id_user=  $id;
+
+            if ( $model->url_bukti_pemasukan )
+            {
+                $path = Yii::getAlias('@webroot'.'/uploads/pemasukan/');
+                $time = date('Y-m-d')."-".time();
+                $model->url_bukti_pemasukan->saveAs($path .$time. '.' . $model->url_bukti_pemasukan ->extension);
+                $model->url_bukti_pemasukan = $time. '.' . $model->url_bukti_pemasukan->extension;
+            }
+
+            $model->save();
+
+
             return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('update', [
