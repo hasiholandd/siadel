@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\TrIuran */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tr Iurans', 'url' => ['index']];
+$this->title = "Detail Konfirmasi Pembayaran" . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Iuran', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-iuran-view">
@@ -93,13 +93,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=> 'uploads/konfirmasi-pembayaran/'.$model->url_bukti_pembayaran,
                 'format' => ['image',['width'=>'100','height'=>'100']],
             ],
-            'history_pembayaran:ntext',
+            //'history_pembayaran:ntext',
             //'created_at',
             //'updated_at',
         ],
     ]) ?>
 
+<?php $session = Yii::$app->session;
 
+if($session->get('rolename') == 'admin'){?>
     <?php $form = \yii\widgets\ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
 
     <?php echo $form->field($model, 'status_pembayaran')->dropDownList(['1' => 'Setuju', '0' => 'Tidak Setuju']); ?>
@@ -110,5 +112,5 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?php \yii\widgets\ActiveForm::end(); ?>
-
+<?php }?>
 </div>

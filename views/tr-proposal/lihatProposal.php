@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status_proposal',
                 //'type' => 'raw',
                 'value' => function($model) {
-                    if($model->status_proposal == 0){return "Tidak Setuju";}else{return "Setuju"; }
+                    if($model->status_proposal == 0){return "Tidak / Belum Disetujui";}else{return "Setuju"; }
                 }
 
             ),

@@ -9,7 +9,7 @@ use app\models\MsAngkatan;
 /* @var $model app\models\TrAnggota */
 
 $this->title = 'Form Input Bulk Data Anggota';
-$this->params['breadcrumbs'][] = ['label' => 'Tr Anggotas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Anggota', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-anggota-create">

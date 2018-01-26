@@ -101,7 +101,7 @@ class TrProposalSearch extends TrProposal
         $query->andFilterWhere([
             'id' => $this->id,
             'id_proposal' => $this->id_proposal,
-            'id_anggota' => $session->get('id_anggota'),
+            'id_anggota' => $session->get('id_user'),
             'approval_by' => $this->approval_by,
             'tanggal_pengajuan' => $this->tanggal_pengajuan,
             'tanggal_approval' => $this->tanggal_approval,

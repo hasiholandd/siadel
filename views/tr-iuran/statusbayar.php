@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TrIuranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tr Iurans';
+$this->title = 'Status Bayar Iuran';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tr-iuran-index">

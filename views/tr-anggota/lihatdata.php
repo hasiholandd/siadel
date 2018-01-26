@@ -32,21 +32,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'nim',
             'nama',
-            'tempat_lahir',
-            'tanggal_lahir',
+            'tempat_lahir',            [
+                'attribute' => 'tanggal_lahir',
+                'format' => ['date', 'php:d/m/Y']
+            ],
             // 'agama',
             // 'jurusan',
             // 'pendidikan_terakhir',
             [ 
                   'attribute'=>'pekerjaan',
-                  'header' => 'pekerjaan',  
+                  'header' => 'Pekerjaan',  
                   'value'=>    function ($model) {
                         return  isset(\app\models\MsPekerjaan::find()->where(['id' => $model->pekerjaan])->one()->nama_pekerjaan) ? \app\models\MsPekerjaan::find()->where(['id' => $model->pekerjaan])->one()->nama_pekerjaan : "-";
                     }
             ],
             
             'no_hp',
-            // 'email:email',
+            'email:email',
             // 'alamat',
             // 'alamat_domisili',
             // 'status_kawin',

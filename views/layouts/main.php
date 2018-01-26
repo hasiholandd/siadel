@@ -40,7 +40,8 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Home', 'url' => ['/site/index']],
-               [
+                ['label' => 'Dashboard', 'url' => ['/dashboard']],
+                [
                 'label' => 'Master Data',
                 'items' => [
                          ['label' => 'Master Angkatan', 'url' => ['/ms-angkatan']],
@@ -88,7 +89,7 @@ AppAsset::register($this);
                 'items' => [
                          ['label' => 'Tambah Iuran', 'url' => ['/ms-iuran/create']],
                          '<li class="divider"></li>',
-                         ['label' => 'Blast Informasi Iuran', 'url' => ['/tr-iuran']],
+                         ['label' => 'Blast Informasi Iuran', 'url' => ['/ms-iuran']],
                          '<li class="divider"></li>',
                          ['label' => 'Monitoring Pembayaran', 'url' => ['/tr-iuran']],
                     ],
@@ -160,7 +161,7 @@ AppAsset::register($this);
                 [
                 'label' => 'Proposal',
                 'items' => [
-                         ['label' => 'Lihat Status Proposal', 'url' => ['/tr-proposal/lihatproposal']],
+                         ['label' => 'Lihat Status Proposal', 'url' => ['/tr-proposal/lihat-proposal']],
                          '<li class="divider"></li>',
                          ['label' => 'Upload Proposal', 'url' => ['/tr-proposal/create']],
                     ],
